@@ -6,3 +6,11 @@
     left: 0;
     display: block;
 }
+
+ul {
+    list-style-type: none;
+    
+    li {
+        display: inline;
+    }
+}
