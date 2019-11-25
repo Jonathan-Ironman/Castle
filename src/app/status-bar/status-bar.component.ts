@@ -7,15 +7,13 @@ import { GameService } from '../game.service';
   styleUrls: ['./status-bar.component.scss']
 })
 export class StatusBarComponent implements OnInit {
-constructor(private service: GameService) { }
+  constructor(private service: GameService) {}
   gold: number;
 
-  updateGold() {
-    this.gold = this.service.getGoldCount();
-  }
-
   ngOnInit() {
-    this.gold = this.service.getGoldCount();
-    window.setInterval(this.updateGold.bind(this), 1000);
+    this.service.getGoldCount().subscribe(state => {
+      // TODO: y u no work
+      this.gold = state && state.gold;
+    });
   }
 }

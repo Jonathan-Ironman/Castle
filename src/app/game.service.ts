@@ -1,20 +1,22 @@
 import { Injectable } from '@angular/core';
+import { appState } from './app.store';
+import { Store } from '@ngrx/store';
+import { ACTION_ADD_GOLD } from './store/actions/actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-  gold = 0;
-
-  getGoldCount(): number {
-    return this.gold;
+  getGoldCount() {
+    // TODO: typed
+    return this.store.select('resourceReducer');
   }
 
-  tick() {
-    this.gold++;
+  private tick() {
+    this.store.dispatch(new ACTION_ADD_GOLD());
   }
 
-  constructor() {
+  constructor(private store: Store<any>) {
     window.setInterval(this.tick.bind(this), 1000);
-   }
+  }
 }
