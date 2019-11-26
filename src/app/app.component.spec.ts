@@ -1,10 +1,15 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { CastleComponent } from './components/castle/castle.component';
+import { StatusBarComponent } from './components/status-bar/status-bar.component';
+import { StoreModule } from '@ngrx/store';
+import { resourceReducer } from './store/reducers/reducers';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent]
+      declarations: [AppComponent, CastleComponent, StatusBarComponent],
+      imports: [StoreModule.forRoot(resourceReducer)]
     }).compileComponents();
   }));
 
@@ -18,14 +23,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('Castle');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain(
-      'Castle app is running!'
-    );
   });
 });

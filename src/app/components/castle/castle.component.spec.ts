@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CastleComponent } from './castle.component';
+import { StoreModule } from '@ngrx/store';
+import { resourceReducer } from 'src/app/store/reducers/reducers';
 
 describe('CastleComponent', () => {
   let component: CastleComponent;
@@ -8,7 +10,8 @@ describe('CastleComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CastleComponent]
+      declarations: [CastleComponent],
+      imports: [StoreModule.forRoot(resourceReducer)]
     }).compileComponents();
   }));
 
