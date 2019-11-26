@@ -14,7 +14,6 @@ import { appState } from './app.store';
   declarations: [AppComponent, CastleComponent, StatusBarComponent],
   imports: [
     BrowserModule,
-    // TODO: ?
     StoreModule.forRoot([resourceReducer], {
       initialState: [appState]
     })

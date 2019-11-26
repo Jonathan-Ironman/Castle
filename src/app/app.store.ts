@@ -1,7 +1,7 @@
-export interface AppState {
+export interface AppStore {
   gold: number;
 }
 
-export const appState: AppState = {
+export const appState: AppStore = {
   gold: 0
 };

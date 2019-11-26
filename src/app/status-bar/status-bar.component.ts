@@ -11,9 +11,8 @@ export class StatusBarComponent implements OnInit {
   gold: number;
 
   ngOnInit() {
-    this.service.getGoldCount().subscribe(state => {
-      // TODO: y u no work
-      this.gold = state && state.gold;
+    this.service.gold$.subscribe(gold => {
+      this.gold = gold;
     });
   }
 }
