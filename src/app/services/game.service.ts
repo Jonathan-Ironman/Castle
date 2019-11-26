@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AppStore } from './app.store';
+import { AppStore } from '../app.store';
 import { Store } from '@ngrx/store';
-import { ACTION_ADD_GOLD } from './store/actions/actions';
+import { ACTION_ADD_GOLD } from '../store/actions/actions';
 import { Observable } from 'rxjs';
 
 @Injectable({

@@ -1,6 +1,5 @@
 import * as Actions from '../actions/actions';
 import { appState, AppStore } from 'src/app/app.store';
-import { Action } from '@ngrx/store';
 
 export function resourceReducer(
   state = appState,
