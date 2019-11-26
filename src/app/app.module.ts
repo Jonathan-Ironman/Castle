@@ -9,6 +9,8 @@ import { StatusBarComponent } from './components/status-bar/status-bar.component
 
 import { resourceReducer } from './store/reducers/reducers';
 import { appState } from './app.store';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent, CastleComponent, StatusBarComponent],
@@ -16,7 +18,8 @@ import { appState } from './app.store';
     BrowserModule,
     StoreModule.forRoot([resourceReducer], {
       initialState: [appState]
-    })
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
     // StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],
   providers: [],
