@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+// TODO import from firebase/app for prod??
 import * as firebase from 'firebase';
 
 @Injectable({
