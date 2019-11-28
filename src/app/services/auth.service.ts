@@ -18,6 +18,7 @@ export class AuthService {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
+        const uid = user.uid;
         // ...
       })
       .catch(error => {

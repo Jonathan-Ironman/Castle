@@ -8,7 +8,7 @@ export class DatabaseService {
   addUser() {
     const data = {
       email: 'test',
-      firsname: 'test',
+      firstname: 'test',
       lastname: `${Date.now()}`
     };
     return new Promise<any>((resolve, reject) => {
