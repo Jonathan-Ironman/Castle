@@ -15,6 +15,7 @@ export class StatusBarComponent implements OnInit {
     private dbService: DatabaseService
   ) {}
   gold: number;
+  users: Array<any>;
 
   addCoffee = () => {
     window.alert('Add to DB');
@@ -26,9 +27,22 @@ export class StatusBarComponent implements OnInit {
     this.authService.authenticate();
   };
 
+  logUsers = () => {
+    window.alert('Users logged in console');
+    console.log(this.users);
+  };
+
+  subscribeUserList = () =>
+    this.dbService.getUsers().subscribe(res => {
+      const userdata = res.map(i => i.payload.doc.data());
+      this.users = userdata;
+    });
+
   ngOnInit() {
     this.gameService.gold$.subscribe(gold => {
       this.gold = gold;
     });
+
+    this.subscribeUserList();
   }
 }
