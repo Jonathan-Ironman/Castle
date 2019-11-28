@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../../services/game.service';
+import { DatabaseService } from '../../services/database.service';
 
 @Component({
   selector: 'app-status-bar',
@@ -7,11 +8,19 @@ import { GameService } from '../../services/game.service';
   styleUrls: ['./status-bar.component.scss']
 })
 export class StatusBarComponent implements OnInit {
-  constructor(private service: GameService) {}
+  constructor(
+    private gameService: GameService,
+    private dbService: DatabaseService
+  ) {}
   gold: number;
 
+  addCoffee = () => {
+    window.alert('Add to DB');
+    this.dbService.addUser();
+  };
+
   ngOnInit() {
-    this.service.gold$.subscribe(gold => {
+    this.gameService.gold$.subscribe(gold => {
       this.gold = gold;
     });
   }
