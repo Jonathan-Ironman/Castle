@@ -11,6 +11,7 @@ import { resourceReducer } from './store/reducers/reducers';
 import { appState } from './app.store';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent, CastleComponent, StatusBarComponent],
@@ -19,7 +20,8 @@ import { environment } from '../environments/environment';
     StoreModule.forRoot([resourceReducer], {
       initialState: [appState]
     }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    BrowserAnimationsModule
     // StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],
   providers: [],
