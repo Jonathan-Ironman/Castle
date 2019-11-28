@@ -22,5 +22,9 @@ export class DatabaseService {
     });
   }
 
+  getUsers() {
+    return this.firestore.collection('users').snapshotChanges();
+  }
+
   constructor(private firestore: AngularFirestore) {}
 }

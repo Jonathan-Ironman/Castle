@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../../services/game.service';
 import { DatabaseService } from '../../services/database.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-status-bar',
@@ -10,6 +11,7 @@ import { DatabaseService } from '../../services/database.service';
 export class StatusBarComponent implements OnInit {
   constructor(
     private gameService: GameService,
+    private authService: AuthService,
     private dbService: DatabaseService
   ) {}
   gold: number;
@@ -17,6 +19,11 @@ export class StatusBarComponent implements OnInit {
   addCoffee = () => {
     window.alert('Add to DB');
     this.dbService.addUser();
+  };
+
+  auth = () => {
+    window.alert('Auth');
+    this.authService.authenticate();
   };
 
   ngOnInit() {
