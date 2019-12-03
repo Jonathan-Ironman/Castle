@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../../services/game.service';
-import { DatabaseService } from '../../services/database.service';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-status-bar',
@@ -9,40 +7,18 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./status-bar.component.scss']
 })
 export class StatusBarComponent implements OnInit {
-  constructor(
-    private gameService: GameService,
-    private authService: AuthService,
-    private dbService: DatabaseService
-  ) {}
+  constructor(private gameService: GameService) {}
   gold: number;
-  users: Array<any>;
 
-  addCoffee = () => {
-    window.alert('Add to DB');
-    this.dbService.addUser();
-  };
-
-  auth = () => {
-    window.alert('Auth');
-    this.authService.authenticate();
-  };
-
-  logUsers = () => {
-    window.alert('Users logged in console');
-    console.log(this.users);
-  };
-
-  subscribeUserList = () =>
-    this.dbService.getUsers().subscribe(res => {
-      const userdata = res.map(i => i.payload.doc.data());
-      this.users = userdata;
-    });
+  // subscribeUserList = () =>
+  //   this.dbService.getUsers().subscribe(res => {
+  //     const userdata = res.map(i => i.payload.doc.data());
+  //     this.users = userdata;
+  //   });
 
   ngOnInit() {
     this.gameService.gold$.subscribe(gold => {
       this.gold = gold;
     });
-
-    this.subscribeUserList();
   }
 }
