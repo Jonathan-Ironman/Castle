@@ -1,9 +1,11 @@
 :host {
   display: inline-block;
+  width: 100%;
 }
 
 ul {
   list-style-type: none;
+  display: inline;
 
   li {
     display: inline;
