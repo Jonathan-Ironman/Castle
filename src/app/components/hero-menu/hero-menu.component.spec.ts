@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { CastleMenuComponent } from './castle-menu.component';
+import { CastleMenuComponent } from './hero-menu.component';
 
 describe('CastleMenuComponent', () => {
   let component: CastleMenuComponent;
@@ -8,9 +7,8 @@ describe('CastleMenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CastleMenuComponent ]
-    })
-    .compileComponents();
+      declarations: [CastleMenuComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

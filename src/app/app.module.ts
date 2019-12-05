@@ -24,10 +24,16 @@ import { MatListModule } from '@angular/material/list';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MenuComponent } from './components/menu/menu.component';
-import { CastleMenuComponent } from './components/castle-menu/castle-menu.component';
+import { HeroMenuComponent } from './components/hero-menu/hero-menu.component';
 
 @NgModule({
-  declarations: [AppComponent, CastleComponent, StatusBarComponent, MenuComponent, CastleMenuComponent],
+  declarations: [
+    AppComponent,
+    CastleComponent,
+    StatusBarComponent,
+    MenuComponent,
+    HeroMenuComponent
+  ],
   imports: [
     BrowserModule,
     StoreModule.forRoot([resourceReducer], {
