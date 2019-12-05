@@ -1,18 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CastleMenuComponent } from './hero-menu.component';
+import { HeroMenuComponent } from './hero-menu.component';
 
-describe('CastleMenuComponent', () => {
-  let component: CastleMenuComponent;
-  let fixture: ComponentFixture<CastleMenuComponent>;
+describe('HeroMenuComponent', () => {
+  let component: HeroMenuComponent;
+  let fixture: ComponentFixture<HeroMenuComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CastleMenuComponent]
+      declarations: [HeroMenuComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CastleMenuComponent);
+    fixture = TestBed.createComponent(HeroMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
