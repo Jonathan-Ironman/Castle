@@ -3,6 +3,7 @@ import { Hero } from 'src/app/models/hero';
 
 export const ADD_GOLD = 'ACTION_ADD_GOLD';
 export const ADD_HERO = 'ACTION_ADD_HERO';
+export const ADVENTURE = 'ACTION_ADVENTURE';
 
 // tslint:disable-next-line:class-name
 export class ACTION_ADD_GOLD implements Action {
@@ -22,4 +23,9 @@ export class ACTION_ADD_HERO implements Action {
   constructor(payload: Hero) {
     this.payload = payload;
   }
+}
+
+// tslint:disable-next-line:class-name
+export class ACTION_ADVENTURE implements Action {
+  readonly type = ADVENTURE;
 }

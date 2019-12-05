@@ -11,6 +11,17 @@ import { Hero } from '../models/hero';
 export class GameService {
   gold$: Observable<number>;
   heroes$: Observable<Array<Hero>>;
+  heroes: Hero[];
+
+  adventure() {
+    const adventuringHeroes = this.heroes.filter(
+      hero => hero.action === 'adventure'
+    );
+    window.alert(
+      'Adventure awaits for ' +
+        adventuringHeroes.map(hero => hero.name).join(', ')
+    );
+  }
 
   addGold(amount: number) {
     this.store.dispatch(new ACTION_ADD_GOLD(amount));
@@ -23,6 +34,8 @@ export class GameService {
   constructor(private store: Store<AppState[]>) {
     this.gold$ = store.select(state => state[0].gold);
     this.heroes$ = store.select(state => state[0].heroes);
+    // Uuuuuh
+    this.heroes$.subscribe(heroes => (this.heroes = heroes));
 
     this.addGold(1000);
     this.addHero({
