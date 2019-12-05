@@ -43,5 +43,14 @@ export class GameService {
       valor: 1,
       action: 'rest'
     });
+    this.addHero({
+      id: 1,
+      name: 'William the Loud',
+      level: 1,
+      combat: 1,
+      tactics: 1,
+      valor: 1,
+      action: 'rest'
+    });
   }
 }

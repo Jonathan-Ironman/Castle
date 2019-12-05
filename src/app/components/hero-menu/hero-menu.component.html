@@ -1,18 +1,21 @@
-<mat-card *ngFor="let hero of heroes">
-  <mat-card-title>{{ hero.name }}</mat-card-title>
-  <mat-card-subtitle
-    >LVL {{ hero.level }} | C {{ hero.combat }} | T {{ hero.tactics }} | V
-    {{ hero.valor }}
-  </mat-card-subtitle>
-  <mat-card-content>
-    <mat-button-toggle-group
-      [(ngModel)]="hero.action"
-      name="heroAction"
-      aria-label="Hero action"
-    >
-      <mat-button-toggle value="adventure">Adventure</mat-button-toggle>
-      <mat-button-toggle value="train">Train</mat-button-toggle>
-      <mat-button-toggle value="rest">Rest</mat-button-toggle>
-    </mat-button-toggle-group>
-  </mat-card-content>
+<mat-card>
+  <div *ngFor="let hero of heroes; let lastItem = last">
+    <mat-card-title>{{ hero.name }}</mat-card-title>
+    <mat-card-subtitle
+      >LVL {{ hero.level }} | C {{ hero.combat }} | T {{ hero.tactics }} | V
+      {{ hero.valor }}
+    </mat-card-subtitle>
+    <mat-card-content>
+      <mat-button-toggle-group
+        [(ngModel)]="hero.action"
+        name="heroAction"
+        aria-label="Hero action"
+      >
+        <mat-button-toggle value="adventure">Adventure</mat-button-toggle>
+        <mat-button-toggle value="train">Train</mat-button-toggle>
+        <mat-button-toggle value="rest">Rest</mat-button-toggle>
+      </mat-button-toggle-group>
+    </mat-card-content>
+    <mat-divider *ngIf="!lastItem"></mat-divider>
+  </div>
 </mat-card>

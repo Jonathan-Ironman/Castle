@@ -1,4 +1,14 @@
 mat-card {
-  margin: 1em;
   width: min-content;
+  position: fixed;
+  left: 0.5em;
+  top: 3em;
+  bottom: 0.5em;
+  overflow-y: scroll;
+  padding: 1em;
+}
+
+mat-card-title {
+  font-size: 1em;
+  padding-top: 0.5em;
 }
