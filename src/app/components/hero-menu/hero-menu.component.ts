@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GameService } from '../../services/game.service';
+import { Hero } from 'src/app/models/hero';
 
 @Component({
   selector: 'app-hero-menu',
@@ -6,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hero-menu.component.scss']
 })
 export class HeroMenuComponent implements OnInit {
-  constructor() {}
+  heroes: Hero[];
+  constructor(private gameService: GameService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.gameService.heroes$.subscribe(heroes => {
+      this.heroes = heroes;
+    });
+  }
 }

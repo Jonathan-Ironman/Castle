@@ -1,10 +1,18 @@
-<button mat-fab [matMenuTriggerFor]="castlemenu" aria-label="Castle menu">
-  <mat-icon>emoji_people</mat-icon>
-</button>
-
-<mat-menu #castlemenu="matMenu">
-  <button mat-menu-item>
-    <mat-icon>accessible_forward</mat-icon>
-    <span>Raiding party</span>
-  </button>
-</mat-menu>
+<mat-card *ngFor="let hero of heroes">
+  <mat-card-title>{{ hero.name }}</mat-card-title>
+  <mat-card-subtitle
+    >LVL {{ hero.level }} | C {{ hero.combat }} | T {{ hero.tactics }} | V
+    {{ hero.valor }}
+  </mat-card-subtitle>
+  <mat-card-content>
+    <mat-button-toggle-group
+      [(ngModel)]="hero.action"
+      name="heroAction"
+      aria-label="Hero action"
+    >
+      <mat-button-toggle value="adventure">Adventure</mat-button-toggle>
+      <mat-button-toggle value="train">Train</mat-button-toggle>
+      <mat-button-toggle value="rest">Rest</mat-button-toggle>
+    </mat-button-toggle-group>
+  </mat-card-content>
+</mat-card>

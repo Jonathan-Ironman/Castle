@@ -9,6 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
 import { CastleComponent } from './components/castle/castle.component';
 import { StatusBarComponent } from './components/status-bar/status-bar.component';
+import { MatCardModule } from '@angular/material/card';
 
 import { resourceReducer } from './store/reducers/reducers';
 import { appState } from './app.store';
@@ -25,7 +26,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MenuComponent } from './components/menu/menu.component';
 import { HeroMenuComponent } from './components/hero-menu/hero-menu.component';
-
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +54,10 @@ import { HeroMenuComponent } from './components/hero-menu/hero-menu.component';
     MatIconModule,
     MatListModule,
     MatSliderModule,
-    MatMenuModule
+    MatMenuModule,
+    MatCardModule,
+    MatButtonToggleModule,
+    FormsModule
     // StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],
   providers: [],
