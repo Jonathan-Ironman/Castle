@@ -28,13 +28,15 @@ import { MenuComponent } from './components/menu/menu.component';
 import { HeroMenuComponent } from './components/hero-menu/hero-menu.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
+import { ActionButtonComponent } from './components/action-button/action-button.component';
 @NgModule({
   declarations: [
     AppComponent,
     CastleComponent,
     StatusBarComponent,
     MenuComponent,
-    HeroMenuComponent
+    HeroMenuComponent,
+    ActionButtonComponent
   ],
   imports: [
     BrowserModule,
