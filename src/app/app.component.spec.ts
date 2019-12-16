@@ -1,6 +1,5 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { CastleComponent } from './components/castle/castle.component';
 import { StatusBarComponent } from './components/status-bar/status-bar.component';
 import { StoreModule } from '@ngrx/store';
 import { resourceReducer } from './store/reducers/reducers';
@@ -8,7 +7,7 @@ import { resourceReducer } from './store/reducers/reducers';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent, CastleComponent, StatusBarComponent],
+      declarations: [AppComponent, StatusBarComponent],
       imports: [StoreModule.forRoot(resourceReducer)]
     }).compileComponents();
   }));

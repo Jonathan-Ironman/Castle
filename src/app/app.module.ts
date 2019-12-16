@@ -7,7 +7,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
-import { CastleComponent } from './components/castle/castle.component';
 import { StatusBarComponent } from './components/status-bar/status-bar.component';
 import { MatCardModule } from '@angular/material/card';
 
@@ -32,7 +31,6 @@ import { ActionButtonComponent } from './components/action-button/action-button.
 @NgModule({
   declarations: [
     AppComponent,
-    CastleComponent,
     StatusBarComponent,
     MenuComponent,
     HeroMenuComponent,

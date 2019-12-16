@@ -48,7 +48,7 @@ export class GameService {
       action: 'rest'
     });
     this.addHero({
-      id: 1,
+      id: 2,
       name: 'Paul the Rapist',
       level: 1,
       combat: 1,
@@ -57,7 +57,7 @@ export class GameService {
       action: 'rest'
     });
     this.addHero({
-      id: 1,
+      id: 3,
       name: 'William the Loud',
       level: 1,
       combat: 1,
