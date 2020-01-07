@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -28,13 +29,15 @@ import { HeroMenuComponent } from './components/hero-menu/hero-menu.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
 import { ActionButtonComponent } from './components/action-button/action-button.component';
+import { MissionSectionComponent } from './components/mission-section/mission-section.component';
 @NgModule({
   declarations: [
     AppComponent,
     StatusBarComponent,
     MenuComponent,
     HeroMenuComponent,
-    ActionButtonComponent
+    ActionButtonComponent,
+    MissionSectionComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ import { ActionButtonComponent } from './components/action-button/action-button.
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
+    MatSelectModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
@@ -63,4 +67,4 @@ import { ActionButtonComponent } from './components/action-button/action-button.
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

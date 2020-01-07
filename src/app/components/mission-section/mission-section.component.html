@@ -1,0 +1,8 @@
+<mat-form-field>
+    <mat-label>Mission</mat-label>
+    <mat-select>
+        <mat-option *ngFor="let mission of missions" [value]="mission.id">
+            {{mission.title}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
