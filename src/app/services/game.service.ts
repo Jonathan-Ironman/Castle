@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AppState } from '../app.store';
 import { Store } from '@ngrx/store';
-import { ACTION_ADD_GOLD, ACTION_ADD_HERO } from '../store/actions/actions';
+import { ACTION_ADD_GOLD, ACTION_ADD_HERO, ACTION_ADD_RECRUITABLE_HERO } from '../store/actions/actions';
 import { Observable } from 'rxjs';
 import { Hero } from '../models/hero';
+import { HeroService } from './hero.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { Hero } from '../models/hero';
 export class GameService {
   gold$: Observable<number>;
   heroes$: Observable<Array<Hero>>;
+  recruitableHeroes$: Observable<Array<Hero>>;
   heroes: Hero[];
 
   adventure() {
@@ -19,7 +21,7 @@ export class GameService {
     );
     window.alert(
       'Adventure awaits for ' +
-        adventuringHeroes.map(hero => hero.name).join(', ')
+      adventuringHeroes.map(hero => hero.name).join(', ')
     );
   }
 
@@ -31,39 +33,25 @@ export class GameService {
     this.store.dispatch(new ACTION_ADD_HERO(hero));
   }
 
-  constructor(private store: Store<AppState[]>) {
+  addRecruitableHero(hero: Hero) {
+    this.store.dispatch(new ACTION_ADD_RECRUITABLE_HERO(hero));
+  }
+
+  constructor(private store: Store<AppState[]>, private heroService: HeroService) {
     this.gold$ = store.select(state => state[0].gold);
     this.heroes$ = store.select(state => state[0].heroes);
+    this.recruitableHeroes$ = store.select(state => state[0].recruitableHeroes);
     // Uuuuuh
     this.heroes$.subscribe(heroes => (this.heroes = heroes));
 
     this.addGold(1000);
-    this.addHero({
-      id: 1,
-      name: 'Bertrand the Slow',
-      level: 1,
-      combat: 1,
-      tactics: 1,
-      valor: 1,
-      action: 'rest'
-    });
-    this.addHero({
-      id: 2,
-      name: 'Paul the Rapist',
-      level: 1,
-      combat: 1,
-      tactics: 1,
-      valor: 1,
-      action: 'rest'
-    });
-    this.addHero({
-      id: 3,
-      name: 'William the Loud',
-      level: 1,
-      combat: 1,
-      tactics: 1,
-      valor: 1,
-      action: 'rest'
-    });
+
+    this.addHero(heroService.createHero(1));
+    this.addHero(heroService.createHero(1));
+    this.addHero(heroService.createHero(1));
+
+    this.addRecruitableHero(heroService.createHero(1));
+    this.addRecruitableHero(heroService.createHero(1));
+    this.addRecruitableHero(heroService.createHero(1));
   }
 }

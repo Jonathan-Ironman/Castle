@@ -3,7 +3,7 @@ import { appState, AppState } from 'src/app/app.store';
 
 export function resourceReducer(
   state = appState,
-  action: Actions.ACTION_ADD_GOLD | Actions.ACTION_ADD_HERO
+  action: Actions.ACTION_ADD_GOLD | Actions.ACTION_ADD_HERO | Actions.ACTION_ADD_RECRUITABLE_HERO
 ): AppState {
   switch (action.type) {
     case Actions.ADD_GOLD:
@@ -13,6 +13,9 @@ export function resourceReducer(
       };
     case Actions.ADD_HERO:
       state.heroes.push(action.payload);
+      return state;
+    case Actions.ADD_RECRUITABLE_HERO:
+      state.recruitableHeroes.push(action.payload);
       return state;
     default:
       return state;

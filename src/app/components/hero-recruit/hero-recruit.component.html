@@ -1,0 +1,14 @@
+<mat-card>
+    <div *ngFor="let hero of heroes; let lastItem = last">
+        <mat-card-title>{{ hero.name }}</mat-card-title>
+        <mat-card-subtitle>LVL {{ hero.level }} | C {{ hero.combat }} | T {{ hero.tactics }} | V
+            {{ hero.valor }}
+        </mat-card-subtitle>
+        <mat-card-content>
+            Mission cost: {{hero.missionFee}}<br>
+            Hiring cost: {{hero.hiringFee}}
+            <!-- hire button -->
+        </mat-card-content>
+        <mat-divider *ngIf="!lastItem"></mat-divider>
+    </div>
+</mat-card>

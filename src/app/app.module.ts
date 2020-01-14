@@ -33,6 +33,7 @@ import { ActionButtonComponent } from './components/action-button/action-button.
 import { MissionSectionComponent } from './components/mission-section/mission-section.component';
 import { appRoutes } from './routes';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { HeroRecruitComponent } from './components/hero-recruit/hero-recruit.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     HeroMenuComponent,
     ActionButtonComponent,
     MissionSectionComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    HeroRecruitComponent
   ],
   imports: [
     BrowserModule,

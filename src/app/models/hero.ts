@@ -1,10 +1,15 @@
+import { Gender } from '../misc/gender.enum';
+
 export class Hero {
   readonly id: number;
   readonly name: string;
   level: number;
+  gender: Gender;
   combat: number;
   tactics: number;
   valor: number;
+  hiringFee: number;
+  missionFee: number;
   action: 'adventure' | 'train' | 'rest';
 
   constructor(hero: Hero) {
