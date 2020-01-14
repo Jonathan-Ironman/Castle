@@ -1,8 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/app.store';
-import { ACTION_ADVENTURE } from '../../store/actions/actions';
-import { GameService } from '../../services/game.service';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-action-button',
@@ -10,10 +6,6 @@ import { GameService } from '../../services/game.service';
   styleUrls: ['./action-button.component.scss']
 })
 export class ActionButtonComponent implements OnInit {
-  adventureTime() {
-    this.gameService.adventure();
-  }
-
-  constructor(private gameService: GameService) {}
-  ngOnInit() {}
+  constructor() { }
+  ngOnInit() { }
 }
