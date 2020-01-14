@@ -31,6 +31,10 @@ speed-measure-plugin*.json
 !.vscode/extensions.json
 .history/*
 
+# System Files
+.DS_Store
+Thumbs.db
+
 # misc
 /.sass-cache
 /connect.lock
@@ -40,7 +44,4 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
-
-# System Files
-.DS_Store
-Thumbs.db
+.firebase/hosting.ZGlzdFxDYXN0bGU.cache
