@@ -132,5 +132,8 @@
       }
     }
   },
-  "defaultProject": "Castle"
+  "defaultProject": "Castle",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
