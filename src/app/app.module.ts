@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { StatusBarComponent } from './components/status-bar/status-bar.component';
@@ -30,6 +31,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
 import { ActionButtonComponent } from './components/action-button/action-button.component';
 import { MissionSectionComponent } from './components/mission-section/mission-section.component';
+import { appRoutes } from './routes';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +50,10 @@ import { MissionSectionComponent } from './components/mission-section/mission-se
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     }),
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    ),
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
