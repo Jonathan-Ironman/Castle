@@ -3,15 +3,10 @@ import { MissionSectionComponent } from './components/mission-section/mission-se
 import { HeroMenuComponent } from './components/hero-menu/hero-menu.component';
 
 export const appRoutes: Routes = [
+    { path: '', redirectTo: '/heroes', pathMatch: 'full' },
+    { path: 'heroes', component: HeroMenuComponent },
     { path: 'missions', component: MissionSectionComponent },
+    { path: 'adventure', component: MissionSectionComponent },
     // { path: 'hero/:id', component: HeroDetailComponent },
-    {
-        path: 'heroes', component: HeroMenuComponent, data: { title: 'Heroes List' }
-    },
-    {
-        path: '',
-        redirectTo: '/heroes',
-        pathMatch: 'full'
-    },
     // { path: '**', component: PageNotFoundComponent }
 ];

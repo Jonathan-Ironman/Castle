@@ -32,6 +32,7 @@ import { FormsModule } from '@angular/forms';
 import { ActionButtonComponent } from './components/action-button/action-button.component';
 import { MissionSectionComponent } from './components/mission-section/mission-section.component';
 import { appRoutes } from './routes';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { appRoutes } from './routes';
     MenuComponent,
     HeroMenuComponent,
     ActionButtonComponent,
-    MissionSectionComponent
+    MissionSectionComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
