@@ -54,7 +54,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     }),
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      // { enableTracing: true } // <-- debugging purposes only
     ),
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
