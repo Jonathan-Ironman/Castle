@@ -3,7 +3,7 @@
   "short_name": "Castle",
   "theme_color": "#222",
   "background_color": "#222",
-  "orientation": "landscape",
+  "orientation": "portrait",
   "display": "fullscreen",
   "scope": "/",
   "start_url": "/",
