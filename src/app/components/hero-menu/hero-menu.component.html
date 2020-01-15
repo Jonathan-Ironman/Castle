@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="!!heroes.length">
   <div *ngFor="let hero of heroes; let lastItem = last">
     <mat-card-title>{{ hero.name }}</mat-card-title>
     <mat-card-subtitle>LVL {{ hero.level }} | C {{ hero.combat }} | T {{ hero.tactics }} | V
@@ -15,4 +15,4 @@
   </div>
 </mat-card>
 
-<app-action-button routerLink="/tavern">Hire heroes</app-action-button>
+<app-action-button *ngIf="!heroes.length" routerLink="/tavern">Hire heroes</app-action-button>

@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="!!heroes.length">
     <div *ngFor="let hero of heroes; let lastItem = last">
         <mat-card-title>{{ hero.name }}</mat-card-title>
         <mat-card-subtitle>LVL {{ hero.level }} | C {{ hero.combat }} | T {{ hero.tactics }} | V
