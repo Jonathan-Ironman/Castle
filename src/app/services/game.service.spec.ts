@@ -2,12 +2,12 @@ import { TestBed } from '@angular/core/testing';
 
 import { GameService } from './game.service';
 import { StoreModule } from '@ngrx/store';
-import { resourceReducer } from '../store/reducers/reducers';
+import { reducers } from '../store/reducers/index';
 
 describe('GameService', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(resourceReducer)]
+      imports: [StoreModule.forRoot(reducers)]
     })
   );
 
