@@ -45,12 +45,12 @@ export class GameService {
     // Uuuuuh
     this.heroes$.subscribe(heroes => (this.heroes = heroes));
 
-    this.addHero(heroService.createHero(1));
-    this.addHero(heroService.createHero(1));
-    this.addHero(heroService.createHero(1));
+    for (let i = 0; i < 3; i++) {
+      this.addHero(heroService.createHero(1));
+    }
 
-    this.addRecruitableHero(heroService.createHero(1));
-    this.addRecruitableHero(heroService.createHero(1));
-    this.addRecruitableHero(heroService.createHero(1));
+    for (let i = 0; i < 6; i++) {
+      this.addRecruitableHero(heroService.createHero(1));
+    }
   }
 }
