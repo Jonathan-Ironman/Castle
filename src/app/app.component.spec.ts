@@ -14,10 +14,9 @@ import { StatusBarComponent } from './components/status-bar/status-bar.component
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MaterialModule } from './material/material.module';
 import { appRoutes } from './routes';
-import { reducers } from './store/reducers';
 import { HeroService } from './services/hero.service';
+import { reducers } from './store/reducers';
 
-const AngularFirestoreStub = {};
 const HeroServiceStub = {
   createHero: () => { }
 };
@@ -44,7 +43,7 @@ describe('AppComponent', () => {
         StoreModule.forRoot(reducers),
       ],
       providers: [
-        { provide: AngularFirestore, useValue: AngularFirestoreStub },
+        { provide: AngularFirestore, useValue: {} },
         { provide: HeroService, useValue: HeroServiceStub },
       ]
     }).compileComponents();

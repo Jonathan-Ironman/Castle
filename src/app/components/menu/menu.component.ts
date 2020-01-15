@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
-import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-menu',
@@ -8,17 +6,14 @@ import { DatabaseService } from 'src/app/services/database.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  constructor(
-    private authService: AuthService,
-    private dbService: DatabaseService
-  ) { }
+  constructor() { }
 
   addUser = () => {
-    this.dbService.addUser();
+    // this.dbService.addUser();
   }
 
   login = () => {
-    this.authService.authenticate();
+    // this.authService.authenticate();
   }
 
   ngOnInit() { }

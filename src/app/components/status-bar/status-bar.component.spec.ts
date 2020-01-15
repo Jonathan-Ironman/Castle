@@ -4,6 +4,7 @@ import { StatusBarComponent } from './status-bar.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from '../../store/reducers/index';
 import { MenuComponent } from '../menu/menu.component';
+import { MaterialModule } from '../../material/material.module';
 
 describe('StatusBarComponent', () => {
   let component: StatusBarComponent;
@@ -11,9 +12,12 @@ describe('StatusBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [StatusBarComponent],
+      declarations: [
+        StatusBarComponent,
+        MenuComponent
+      ],
       imports: [
-        MenuComponent,
+        MaterialModule,
         StoreModule.forRoot(reducers)
       ]
     }).compileComponents();

@@ -4,6 +4,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from 'src/app/store/reducers';
 import { MaterialModule } from '../../material/material.module';
 import { ActionButtonComponent } from '../action-button/action-button.component';
+import { FormsModule } from '@angular/forms';
 
 describe('HeroMenuComponent', () => {
   let component: HeroMenuComponent;
@@ -14,6 +15,7 @@ describe('HeroMenuComponent', () => {
       imports: [
         StoreModule.forRoot(reducers),
         MaterialModule,
+        FormsModule
       ],
       declarations: [
         HeroMenuComponent,

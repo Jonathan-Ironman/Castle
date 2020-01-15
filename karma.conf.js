@@ -14,10 +14,6 @@ module.exports = function (config) {
     ],
     client: {
       clearContext: false, // leave Jasmine Spec Runner output visible in browser
-      // TODO remove once tests are green
-      jasmine: {
-        random: false
-      }
     },
     coverageIstanbulReporter: {
       dir: require('path').join(__dirname, './coverage/Castle'),

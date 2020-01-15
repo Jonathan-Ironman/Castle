@@ -5,6 +5,7 @@ import { HeroRecruitComponent } from './hero-recruit.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from 'src/app/store/reducers';
 import { ActionButtonComponent } from '../action-button/action-button.component';
+import { MaterialModule } from '../../material/material.module';
 
 describe('HeroRecruitComponent', () => {
   let component: HeroRecruitComponent;
@@ -13,11 +14,13 @@ describe('HeroRecruitComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        MatCardModule,
         StoreModule.forRoot(reducers),
-        ActionButtonComponent,
+        MaterialModule
       ],
-      declarations: [HeroRecruitComponent]
+      declarations: [
+        HeroRecruitComponent,
+        ActionButtonComponent
+      ]
     })
       .compileComponents();
   }));
