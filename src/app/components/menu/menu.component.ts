@@ -11,15 +11,15 @@ export class MenuComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private dbService: DatabaseService
-  ) {}
+  ) { }
 
   addUser = () => {
     this.dbService.addUser();
-  };
+  }
 
   login = () => {
     this.authService.authenticate();
-  };
+  }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

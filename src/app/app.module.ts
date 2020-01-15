@@ -3,16 +3,9 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatToolbarModule } from '@angular/material/toolbar';
+
+
+
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -30,6 +23,7 @@ import { StatusBarComponent } from './components/status-bar/status-bar.component
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { appRoutes } from './routes';
 import { reducers } from './store/reducers';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
@@ -58,16 +52,7 @@ import { reducers } from './store/reducers';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatSliderModule,
-    MatMenuModule,
-    MatCardModule,
-    MatButtonToggleModule,
+    MaterialModule,
     FormsModule
   ],
   providers: [],
