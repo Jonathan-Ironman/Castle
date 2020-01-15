@@ -38,7 +38,7 @@ export class HeroService {
       tactics: MathHelpers.getRandomInt(level * 3, level * 5),
       valor: MathHelpers.getRandomInt(level * 3, level * 5),
       missionFee: 10,
-      hiringFee: 100,
+      hiringFee: MathHelpers.chance(50) && 100 || 2000,
       action: 'rest'
     });
     return hero;

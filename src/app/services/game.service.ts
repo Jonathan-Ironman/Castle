@@ -45,8 +45,6 @@ export class GameService {
     // Uuuuuh
     this.heroes$.subscribe(heroes => (this.heroes = heroes));
 
-    this.addGold(1000);
-
     this.addHero(heroService.createHero(1));
     this.addHero(heroService.createHero(1));
     this.addHero(heroService.createHero(1));

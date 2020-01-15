@@ -4,7 +4,9 @@
         <mat-card-subtitle>LVL {{ hero.level }} | C {{ hero.combat }} | T {{ hero.tactics }} | V
             {{ hero.valor }}
         </mat-card-subtitle>
-        <app-action-button (click)="recruit(hero)" class="hireButton">Hire: {{hero.hiringFee}}
+        <app-action-button (click)="canHireHero(hero.hiringFee) && recruit(hero)"
+            [enabled]="canHireHero(hero.hiringFee)" class="hireButton">Hire:
+            {{hero.hiringFee}}
         </app-action-button>
         <mat-card-content>
             Mission cost: {{hero.missionFee}}<br>
