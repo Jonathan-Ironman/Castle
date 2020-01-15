@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AppState } from '../app.store';
 import { Store } from '@ngrx/store';
-import { ACTION_ADD_GOLD, ACTION_ADD_HERO, ACTION_ADD_RECRUITABLE_HERO } from '../store/actions/actions';
 import { Observable } from 'rxjs';
 import { Hero } from '../models/hero';
+import { HeroActions } from '../store/actions/hero.actions';
+import { ResourceActions } from '../store/actions/resource.actions';
+import { AppState } from '../store/reducers';
 import { HeroService } from './hero.service';
 
 @Injectable({
@@ -11,8 +12,8 @@ import { HeroService } from './hero.service';
 })
 export class GameService {
   gold$: Observable<number>;
-  heroes$: Observable<Array<Hero>>;
-  recruitableHeroes$: Observable<Array<Hero>>;
+  heroes$: Observable<Hero[]>;
+  recruitableHeroes$: Observable<Hero[]>;
   heroes: Hero[];
 
   adventure() {
@@ -26,21 +27,21 @@ export class GameService {
   }
 
   addGold(amount: number) {
-    this.store.dispatch(new ACTION_ADD_GOLD(amount));
+    this.store.dispatch(ResourceActions.addGold(amount));
   }
 
   addHero(hero: Hero) {
-    this.store.dispatch(new ACTION_ADD_HERO(hero));
+    this.store.dispatch(HeroActions.hireHero(hero));
   }
 
   addRecruitableHero(hero: Hero) {
-    this.store.dispatch(new ACTION_ADD_RECRUITABLE_HERO(hero));
+    this.store.dispatch(HeroActions.addRecruitableHero(hero));
   }
 
-  constructor(private store: Store<AppState[]>, private heroService: HeroService) {
-    this.gold$ = store.select(state => state[0].gold);
-    this.heroes$ = store.select(state => state[0].heroes);
-    this.recruitableHeroes$ = store.select(state => state[0].recruitableHeroes);
+  constructor(private store: Store<AppState>, heroService: HeroService) {
+    this.gold$ = store.select(state => state.resources.gold);
+    this.heroes$ = store.select(state => state.heroes.myHeroes);
+    this.recruitableHeroes$ = store.select(state => state.heroes.recruitableHeroes);
     // Uuuuuh
     this.heroes$.subscribe(heroes => (this.heroes = heroes));
 

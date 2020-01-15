@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../app.store';
-import { Hero } from '../models/hero';
+
 import { Gender } from '../misc/gender.enum';
-import { maleHeroNames, femaleHeroNames } from '../misc/hero-names';
+import { femaleHeroNames, maleHeroNames } from '../misc/hero-names';
 import { MathHelpers } from '../misc/math-helpers';
+import { Hero } from '../models/hero';
+import { AppState } from '../store/reducers';
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +44,5 @@ export class HeroService {
     return hero;
   }
 
-  constructor(private store: Store<AppState[]>) { }
+  constructor(private store: Store<AppState>) { }
 }

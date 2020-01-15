@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Hero } from 'src/app/models/hero';
 import { GameService } from 'src/app/services/game.service';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/app.store';
+import { HeroActions } from '../../store/actions/hero.actions';
+import { AppState } from '../../store/reducers';
 
 @Component({
   selector: 'app-hero-recruit',
@@ -13,10 +14,11 @@ export class HeroRecruitComponent implements OnInit {
   heroes: Hero[];
 
   recruit(hero: Hero) {
-    // this.store.dispatch(new ACTION_RECRUIT_HERO(hero));
+    this.store.dispatch(HeroActions.hireHero(hero));
+    this.store.dispatch(HeroActions.removeRecruitableHero(hero));
   }
 
-  constructor(private gameService: GameService, private store: Store<AppState[]>) { }
+  constructor(private gameService: GameService, private store: Store<AppState>) { }
 
   ngOnInit() {
     this.gameService.recruitableHeroes$.subscribe(heroes => {

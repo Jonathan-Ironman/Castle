@@ -1,39 +1,35 @@
+import { LayoutModule } from '@angular/cdk/layout';
+import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreModule } from '@ngrx/store';
-import { RouterModule, Routes } from '@angular/router';
-
-import { AppComponent } from './app.component';
-import { StatusBarComponent } from './components/status-bar/status-bar.component';
-import { MatCardModule } from '@angular/material/card';
-
-import { resourceReducer } from './store/reducers/reducers';
-import { appState } from './app.store';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MatSliderModule } from '@angular/material/slider';
 import { MatMenuModule } from '@angular/material/menu';
-import { MenuComponent } from './components/menu/menu.component';
-import { HeroMenuComponent } from './components/hero-menu/hero-menu.component';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { AppComponent } from './app.component';
 import { ActionButtonComponent } from './components/action-button/action-button.component';
-import { MissionSectionComponent } from './components/mission-section/mission-section.component';
-import { appRoutes } from './routes';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { HeroMenuComponent } from './components/hero-menu/hero-menu.component';
 import { HeroRecruitComponent } from './components/hero-recruit/hero-recruit.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { MissionSectionComponent } from './components/mission-section/mission-section.component';
+import { StatusBarComponent } from './components/status-bar/status-bar.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { appRoutes } from './routes';
+import { reducers } from './store/reducers';
 
 @NgModule({
   declarations: [
@@ -48,9 +44,9 @@ import { HeroRecruitComponent } from './components/hero-recruit/hero-recruit.com
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot([resourceReducer], {
-      initialState: [appState]
-    }),
+    StoreModule.forRoot(reducers),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    // StoreDevtoolsModule.instrumentOnlyWithExtension()
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     }),
@@ -73,7 +69,6 @@ import { HeroRecruitComponent } from './components/hero-recruit/hero-recruit.com
     MatCardModule,
     MatButtonToggleModule,
     FormsModule
-    // StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],
   providers: [],
   bootstrap: [AppComponent]
