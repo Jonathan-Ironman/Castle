@@ -1,5 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeroMenuComponent } from './hero-menu.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from 'src/app/store/reducers';
+import { MaterialModule } from '../../material/material.module';
+import { ActionButtonComponent } from '../action-button/action-button.component';
 
 describe('HeroMenuComponent', () => {
   let component: HeroMenuComponent;
@@ -7,7 +11,14 @@ describe('HeroMenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [HeroMenuComponent]
+      imports: [
+        StoreModule.forRoot(reducers),
+        MaterialModule,
+      ],
+      declarations: [
+        HeroMenuComponent,
+        ActionButtonComponent
+      ]
     }).compileComponents();
   }));
 
