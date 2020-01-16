@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -21,6 +21,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { appRoutes } from './routes';
 import { reducers } from './store/reducers';
 import { MaterialModule } from './material/material.module';
+import { MyHammerConfig } from './hammer.config';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,7 @@ import { MaterialModule } from './material/material.module';
     MaterialModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
