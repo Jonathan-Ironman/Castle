@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Hero } from '../models/hero';
+import { Hero } from '../models/hero.model';
 import { HeroActions } from '../store/actions/hero.actions';
 import { ResourceActions } from '../store/actions/resource.actions';
 import { AppState } from '../store/reducers';

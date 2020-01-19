@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Gender } from '../misc/gender.enum';
 import { femaleHeroNames, maleHeroNames } from '../misc/hero-names';
 import { MathHelpers } from '../misc/math-helpers';
-import { Hero } from '../models/hero';
+import { Hero } from '../models/hero.model';
 import { AppState } from '../store/reducers';
 
 @Injectable({
