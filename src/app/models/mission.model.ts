@@ -1,5 +1,6 @@
 import { Adversity } from './adversity.model';
 import { Reward } from './reward.model';
+import { Intel } from './intel.model';
 
 export class Mission {
     id: string;
@@ -7,4 +8,5 @@ export class Mission {
     description: string;
     rewards: Reward[];
     adversity: Adversity;
+    intelligence: Intel;
 }

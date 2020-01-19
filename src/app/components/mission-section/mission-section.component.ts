@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { missions } from './missions';
+import { missions } from '../../misc/missions';
 
 @Component({
   selector: 'app-mission-section',
