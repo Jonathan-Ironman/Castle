@@ -17,7 +17,7 @@ import { uniqueMissions } from '../../misc/missions';
   styleUrls: ['./hero-assignment.component.scss']
 })
 export class HeroAssignmentComponent implements OnInit {
-  heroes: Hero[];
+  heroes: readonly Hero[];
   mission$: Observable<Mission | undefined>;
   mission: Mission | undefined;
 

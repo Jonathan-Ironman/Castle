@@ -12,8 +12,8 @@ import { Hero } from 'src/app/models/hero.model';
   styleUrls: ['./hero-recruit.component.scss']
 })
 export class HeroRecruitComponent implements OnInit {
-  heroes: Hero[];
-  gold: number;
+  heroes: readonly Hero[];
+  gold: Readonly<number>;
 
   canHireHero(hiringPrice) {
     return hiringPrice <= this.gold;

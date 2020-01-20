@@ -5,11 +5,11 @@ import { Hero } from 'src/app/models/hero.model';
 // export const heroFeatureKey = 'hero';
 
 export interface HeroState {
-  myHeroes: Array<Hero>;
-  recruitableHeroes: Array<Hero>;
+  myHeroes: Readonly<Array<Hero>>;
+  recruitableHeroes: Readonly<Array<Hero>>;
 }
 
-export const initialState: HeroState = {
+export const initialState: Readonly<HeroState> = {
   myHeroes: [],
   recruitableHeroes: []
 };
@@ -17,16 +17,16 @@ export const initialState: HeroState = {
 const reducer = createReducer(
   initialState,
   on(HeroActions.hireHero, (state, hero) => {
-    state.myHeroes.push(hero);
-    return state;
+    const myHeroes = [...state.myHeroes, hero];
+    return { ...state, myHeroes };
   }),
   on(HeroActions.addRecruitableHero, (state, hero) => {
-    state.recruitableHeroes.push(hero);
-    return state;
+    const recruitableHeroes = [...state.recruitableHeroes, hero];
+    return { ...state, recruitableHeroes };
   }),
   on(HeroActions.removeRecruitableHero, (state, hero) => {
-    state.recruitableHeroes = state.recruitableHeroes.filter(x => x.id !== hero.id);
-    return state;
+    const recruitableHeroes = state.recruitableHeroes.filter(x => x.id !== hero.id);
+    return { ...state, recruitableHeroes };
   }),
   on(HeroActions.assignMissionToHero, (state, payload) => {
     payload.hero.assignment = payload.mission;

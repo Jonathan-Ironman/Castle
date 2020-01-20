@@ -11,10 +11,10 @@ import { HeroService } from './hero.service';
   providedIn: 'root'
 })
 export class GameService {
-  gold$: Observable<number>;
-  heroes$: Observable<Hero[]>;
-  recruitableHeroes$: Observable<Hero[]>;
-  heroes: Hero[];
+  gold$: Observable<Readonly<number>>;
+  heroes$: Observable<readonly Hero[]>;
+  recruitableHeroes$: Observable<readonly Hero[]>;
+  heroes: readonly Hero[];
 
   addGold(amount: number) {
     this.store.dispatch(ResourceActions.addGold(amount));

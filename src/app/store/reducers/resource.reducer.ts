@@ -4,7 +4,7 @@ import { ResourceActions } from '../actions/resource.actions';
 // export const resourceFeatureKey = 'resource';
 
 export interface ResourceState {
-  gold: number;
+  gold: Readonly<number>;
 }
 
 export const initialState: ResourceState = {
@@ -19,6 +19,6 @@ const reducer = createReducer(
     (state, { payload }) => ({ ...state, gold: state.gold - payload }))
 );
 
-export function resourceReducer(state: ResourceState | undefined, action: Action) {
+export function resourceReducer(state: Readonly<ResourceState> | undefined, action: Action) {
   return reducer(state, action);
 }

@@ -8,7 +8,7 @@ import { Hero } from 'src/app/models/hero.model';
   styleUrls: ['./hero-menu.component.scss']
 })
 export class HeroMenuComponent implements OnInit {
-  heroes: Hero[];
+  heroes: readonly Hero[];
   constructor(private gameService: GameService) { }
 
   ngOnInit() {
