@@ -9,7 +9,8 @@
             </span>
         </mat-card-subtitle>
 
-        <!-- <app-action-button (click)=""></app-action-button> -->
+        <app-action-button [enabled]="canAssignHero(mission)" [routerLink]="['/assignments', mission.id]"
+            class="assignButton">Assign</app-action-button>
 
         <mat-card-content>
             {{ mission.description }}

@@ -2,7 +2,7 @@
   <div *ngFor="let hero of heroes; let lastItem = last">
     <mat-card-title>{{ hero.name }}</mat-card-title>
     <mat-card-subtitle>LVL {{ hero.level }} | C {{ hero.combat }} | T {{ hero.tactics }} | V
-      {{ hero.valor }}
+      {{ hero.valor }}<span *ngIf="!!hero.assignment"> | Assignment: {{ hero.assignment.title }}</span>
     </mat-card-subtitle>
     <mat-card-content>
       <mat-button-toggle-group [(ngModel)]="hero.action" name="heroAction" aria-label="Hero action">

@@ -21,6 +21,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { appRoutes } from './routes';
 import { reducers } from './store/reducers';
 import { MaterialModule } from './material/material.module';
+import { HeroAssignmentComponent } from './components/hero-assignment/hero-assignment.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MaterialModule } from './material/material.module';
     ActionButtonComponent,
     MissionSectionComponent,
     ToolbarComponent,
-    HeroRecruitComponent
+    HeroRecruitComponent,
+    HeroAssignmentComponent
   ],
   imports: [
     BrowserModule,

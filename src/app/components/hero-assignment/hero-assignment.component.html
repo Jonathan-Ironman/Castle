@@ -1,0 +1,16 @@
+<h3>{{ (mission$ | async)?.title }}</h3>
+<mat-card *ngIf="!!heroes.length">
+    <div *ngFor="let hero of heroes; let lastItem = last">
+        <mat-card-title>{{ hero.name }}</mat-card-title>
+        <mat-card-subtitle>LVL {{ hero.level }} | C {{ hero.combat }} | T {{ hero.tactics }} | V
+            {{ hero.valor }}
+        </mat-card-subtitle>
+        <app-action-button (click)="assignHeroToMission(hero)" class="assign">Assign</app-action-button>
+        <mat-card-content>
+            Awesome!
+        </mat-card-content>
+        <mat-divider *ngIf="!lastItem"></mat-divider>
+    </div>
+</mat-card>
+
+<app-action-button class="exit" routerLink="/missions">Done</app-action-button>

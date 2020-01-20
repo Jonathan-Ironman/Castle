@@ -1,4 +1,5 @@
 import { Gender } from '../misc/gender.enum';
+import { Mission } from './mission.model';
 
 export class Hero {
   readonly id: number;
@@ -11,6 +12,7 @@ export class Hero {
   hiringFee: number;
   missionFee: number;
   action: 'adventure' | 'train' | 'rest';
+  assignment?: Mission;
 
   constructor(hero: Hero) {
     Object.assign(this, hero);

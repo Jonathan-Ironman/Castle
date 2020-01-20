@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Hero } from 'src/app/models/hero.model';
+import { Mission } from '../../models/mission.model';
 
 export const HeroActions = {
   hireHero: createAction(
@@ -11,4 +12,7 @@ export const HeroActions = {
   removeRecruitableHero: createAction(
     '[Hero] Remove recruitable hero',
     props<Hero>()),
+  assignMissionToHero: createAction(
+    '[Hero] Assign mission to hero',
+    props<{ mission: Mission, hero: Hero }>()),
 };

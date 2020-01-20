@@ -11,7 +11,13 @@ mat-card-title {
   padding-top: 0.5em;
 }
 
-.assignButton {
+.assign {
   float: right;
   margin-top: -1em;
+}
+
+.exit {
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }

@@ -1,30 +1,31 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
-import { MaterialModule } from '../../material/material.module';
+import { StoreModule } from '@ngrx/store';
+import { MaterialModule } from 'src/app/material/material.module';
+import { reducers } from 'src/app/store/reducers';
 import { ActionButtonComponent } from '../action-button/action-button.component';
-import { MissionSectionComponent } from './mission-section.component';
+import { HeroAssignmentComponent } from './hero-assignment.component';
+import { RouterModule } from '@angular/router';
 
-describe('MissionSectionComponent', () => {
-  let component: MissionSectionComponent;
-  let fixture: ComponentFixture<MissionSectionComponent>;
+describe('HeroAssignmentComponent', () => {
+  let component: HeroAssignmentComponent;
+  let fixture: ComponentFixture<HeroAssignmentComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        BrowserAnimationsModule,
         MaterialModule,
+        StoreModule.forRoot(reducers),
         RouterModule.forRoot([]),
       ],
       declarations: [
-        MissionSectionComponent,
+        HeroAssignmentComponent,
         ActionButtonComponent
       ]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MissionSectionComponent);
+    fixture = TestBed.createComponent(HeroAssignmentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
