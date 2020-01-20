@@ -15,9 +15,12 @@ export class HeroService {
   // TODO: remember to store.
   private idCount = 1;
 
-  private generateHeroGender(): Gender {
-    const gender = MathHelpers.chance(this.maleToFemalePercentage) && Gender.male || Gender.female;
-    return gender;
+  generateHeroGender(): Gender {
+    if (MathHelpers.chance(this.maleToFemalePercentage)) {
+      return Gender.male;
+    }
+
+    return Gender.female;
   }
 
   private generateHeroName(gender: Gender): string {
