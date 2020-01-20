@@ -16,16 +16,6 @@ export class GameService {
   recruitableHeroes$: Observable<Hero[]>;
   heroes: Hero[];
 
-  adventure() {
-    const adventuringHeroes = this.heroes.filter(
-      hero => hero.action === 'adventure'
-    );
-    window.alert(
-      'Adventure awaits for ' +
-      adventuringHeroes.map(hero => hero.name).join(', ')
-    );
-  }
-
   addGold(amount: number) {
     this.store.dispatch(ResourceActions.addGold(amount));
   }
