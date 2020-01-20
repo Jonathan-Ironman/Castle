@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { missions } from '../../misc/missions';
+import { uniqueMissions } from '../../misc/missions';
+import { HeroService } from '../../services/hero.service';
 
 @Component({
   selector: 'app-mission-section',
@@ -7,10 +8,7 @@ import { missions } from '../../misc/missions';
   styleUrls: ['./mission-section.component.scss']
 })
 export class MissionSectionComponent implements OnInit {
-  missions = missions;
+  missions = uniqueMissions;
   constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }

@@ -1,8 +1,19 @@
-<mat-form-field>
-    <mat-label>Mission</mat-label>
-    <mat-select>
-        <mat-option *ngFor="let mission of missions" [value]="mission.id">
-            {{mission.title}}
-        </mat-option>
-    </mat-select>
-</mat-form-field>
+<mat-card *ngIf="!!missions.length">
+    <div *ngFor="let mission of missions; let lastItem = last">
+        <mat-card-title>{{ mission.title }}</mat-card-title>
+
+        <mat-card-subtitle *ngIf="!!mission.assignments?.length">
+            {{ mission.assignmentType | titlecase }}:
+            <span *ngFor="let hero of mission.assignments">
+                {{ hero.name }}
+            </span>
+        </mat-card-subtitle>
+
+        <!-- <app-action-button (click)=""></app-action-button> -->
+
+        <mat-card-content>
+            {{ mission.description }}
+        </mat-card-content>
+        <mat-divider *ngIf="!lastItem"></mat-divider>
+    </div>
+</mat-card>

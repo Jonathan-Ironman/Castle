@@ -2,7 +2,8 @@ import { Mission } from '../models/mission.model';
 import { Adversity } from '../models/adversity.model';
 import { RewardGold } from '../models/reward.model';
 import { Intel } from '../models/intel.model';
-export const missions: Mission[] = [
+
+export const uniqueMissions: Mission[] = [
     {
         id: 'm1',
         title: 'The dead of the gladioles',
