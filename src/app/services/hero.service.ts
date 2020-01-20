@@ -11,7 +11,7 @@ import { AppState } from '../store/reducers';
   providedIn: 'root'
 })
 export class HeroService {
-  private maleToFemalePercentage = 70;
+  private maleToFemalePercentage = 85;
   // TODO: remember to store.
   private idCount = 1;
 
