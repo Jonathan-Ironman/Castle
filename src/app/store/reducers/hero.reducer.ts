@@ -31,6 +31,10 @@ const reducer = createReducer(
   on(HeroActions.assignMissionToHero, (state, payload) => {
     payload.hero.assignment = payload.mission;
     return state;
+  }),
+  on(HeroActions.unassignMissionFromHero, (state, payload) => {
+    delete payload.hero.assignment;
+    return state;
   })
 );
 

@@ -28,6 +28,10 @@ export class HeroAssignmentComponent implements OnInit {
     this.store.dispatch(HeroActions.assignMissionToHero({ hero, mission: this.mission }));
   }
 
+  unassignHeroFromMission(hero: Hero) {
+    this.store.dispatch(HeroActions.unassignMissionFromHero({ hero }));
+  }
+
   constructor(
     private gameService: GameService,
     private store: Store<AppState>,

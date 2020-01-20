@@ -15,4 +15,7 @@ export const HeroActions = {
   assignMissionToHero: createAction(
     '[Hero] Assign mission to hero',
     props<{ mission: Mission, hero: Hero }>()),
+  unassignMissionFromHero: createAction(
+    '[Hero] Unassign mission',
+    props<{ hero: Hero }>()),
 };

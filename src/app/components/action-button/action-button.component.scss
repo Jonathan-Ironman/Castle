@@ -5,3 +5,7 @@
     min-width: 7em;
   }
 }
+
+:host.warn button {
+  background-color: #792a66;
+}

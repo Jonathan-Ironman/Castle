@@ -5,7 +5,15 @@
         <mat-card-subtitle>LVL {{ hero.level }} | C {{ hero.combat }} | T {{ hero.tactics }} | V
             {{ hero.valor }}
         </mat-card-subtitle>
-        <app-action-button (click)="assignHeroToMission(hero)" class="assign">Assign</app-action-button>
+
+        <app-action-button [ngClass]="{ 'warn': !!hero.assignment }" *ngIf="hero.assignment !== mission"
+            (click)="assignHeroToMission(hero)" class="assign">
+            Assign
+        </app-action-button>
+        <app-action-button *ngIf="hero.assignment === mission" (click)="unassignHeroFromMission(hero)" class="assign">
+            Unassign
+        </app-action-button>
+
         <mat-card-content>
             Awesome!
         </mat-card-content>
