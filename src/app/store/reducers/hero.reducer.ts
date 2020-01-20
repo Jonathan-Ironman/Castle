@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { Hero } from 'src/app/models/hero';
 import { HeroActions } from '../actions/hero.actions';
+import { Hero } from 'src/app/models/hero.model';
 
 // export const heroFeatureKey = 'hero';
 

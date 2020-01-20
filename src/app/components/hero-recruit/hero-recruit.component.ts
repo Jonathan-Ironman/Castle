@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Hero } from 'src/app/models/hero';
 import { GameService } from 'src/app/services/game.service';
 import { HeroActions } from '../../store/actions/hero.actions';
 import { AppState } from '../../store/reducers';
 import { ResourceActions } from '../../store/actions/resource.actions';
+import { Hero } from 'src/app/models/hero.model';
 
 @Component({
   selector: 'app-hero-recruit',
