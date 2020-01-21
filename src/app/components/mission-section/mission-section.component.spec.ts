@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../../material/material.module';
 import { ActionButtonComponent } from '../action-button/action-button.component';
 import { MissionSectionComponent } from './mission-section.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from '../../store/reducers/index';
 
 describe('MissionSectionComponent', () => {
   let component: MissionSectionComponent;
@@ -15,6 +17,7 @@ describe('MissionSectionComponent', () => {
         BrowserAnimationsModule,
         MaterialModule,
         RouterModule.forRoot([]),
+        StoreModule.forRoot(reducers),
       ],
       declarations: [
         MissionSectionComponent,
