@@ -1,4 +1,4 @@
-<h3>{{ (mission$ | async)?.title }}</h3>
+<h1>Mission: {{ (mission$ | async)?.title }}</h1>
 <mat-card *ngIf="!!heroes.length">
     <div *ngFor="let hero of heroes; let lastItem = last">
         <mat-card-title>{{ hero.name }}</mat-card-title>
