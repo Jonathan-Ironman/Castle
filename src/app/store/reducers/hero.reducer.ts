@@ -4,6 +4,7 @@ import { Hero } from 'src/app/models/hero.model';
 
 // export const heroFeatureKey = 'hero';
 
+// TODO: merge fields maybe
 export interface HeroState {
   myHeroes: Readonly<Array<Hero>>;
   recruitableHeroes: Readonly<Array<Hero>>;

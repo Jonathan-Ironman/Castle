@@ -1,6 +1,7 @@
 import { Gender } from '../misc/gender.enum';
 import { Mission } from './mission.model';
 
+// TODO: Make everything readonly.
 export class Hero {
   readonly id: number;
   readonly name: string;
@@ -11,7 +12,6 @@ export class Hero {
   valor: number;
   hiringFee: number;
   missionFee: number;
-  action: 'adventure' | 'train' | 'rest';
   assignment?: Mission;
 
   constructor(hero: Hero) {

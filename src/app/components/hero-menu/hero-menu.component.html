@@ -1,15 +1,14 @@
 <mat-card *ngIf="!!heroes.length">
   <div *ngFor="let hero of heroes; let lastItem = last">
     <mat-card-title>{{ hero.name }}</mat-card-title>
-    <mat-card-subtitle>LVL {{ hero.level }} | C {{ hero.combat }} | T {{ hero.tactics }} | V
-      {{ hero.valor }}<span *ngIf="!!hero.assignment"> | Assignment: {{ hero.assignment.title }}</span>
+    <mat-card-subtitle>Level {{ hero.level }}
+      <span *ngIf="!!hero.assignment"> | Assignment: {{ hero.assignment.title }}</span>
     </mat-card-subtitle>
     <mat-card-content>
-      <mat-button-toggle-group [(ngModel)]="hero.action" name="heroAction" aria-label="Hero action">
-        <mat-button-toggle value="adventure">Adventure</mat-button-toggle>
-        <mat-button-toggle value="train">Train</mat-button-toggle>
-        <mat-button-toggle value="rest">Rest</mat-button-toggle>
-      </mat-button-toggle-group>
+      Combat {{ hero.combat }}<br />
+      Tactics {{ hero.tactics }}<br />
+      Valor {{ hero.valor }}<br />
+      Mission fee {{ hero.missionFee }}
     </mat-card-content>
     <mat-divider *ngIf="!lastItem"></mat-divider>
   </div>
