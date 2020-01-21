@@ -26,6 +26,6 @@ export const selectHeroState = createFeatureSelector<AppState, HeroState>('heroe
 export const selectResourceState = createFeatureSelector<AppState, ResourceState>('resources');
 export const selectReportState = createFeatureSelector<AppState, ReportState>('reports');
 export const selectGameState = createFeatureSelector<AppState, GameState>('game');
-export const selectMissionState = createFeatureSelector<AppState, GameState>('missions');
+export const selectMissionState = createFeatureSelector<AppState, MissionState>('missions');
 
 export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];
