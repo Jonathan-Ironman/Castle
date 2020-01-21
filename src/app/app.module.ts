@@ -22,6 +22,7 @@ import { appRoutes } from './routes';
 import { reducers } from './store/reducers';
 import { MaterialModule } from './material/material.module';
 import { HeroAssignmentComponent } from './components/hero-assignment/hero-assignment.component';
+import { MissionControlComponent } from './components/mission-control/mission-control.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { HeroAssignmentComponent } from './components/hero-assignment/hero-assig
     MissionSectionComponent,
     ToolbarComponent,
     HeroRecruitComponent,
-    HeroAssignmentComponent
+    HeroAssignmentComponent,
+    MissionControlComponent
   ],
   imports: [
     BrowserModule,

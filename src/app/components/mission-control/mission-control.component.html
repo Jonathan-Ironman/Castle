@@ -1,0 +1,11 @@
+<mat-card *ngIf="!!reports.length">
+    <div *ngFor="let report of reports; let lastItem = last">
+        <mat-card-title>{{ report.title }}</mat-card-title>
+        <mat-card-content>
+            {{ report.text }}
+        </mat-card-content>
+        <mat-divider *ngIf="!lastItem"></mat-divider>
+    </div>
+</mat-card>
+
+<app-action-button (click)="handleTick()" class="adventure">Adventure time!</app-action-button>

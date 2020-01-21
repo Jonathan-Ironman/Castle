@@ -17,6 +17,7 @@ import { appRoutes } from './routes';
 import { HeroService } from './services/hero.service';
 import { reducers } from './store/reducers';
 import { HeroAssignmentComponent } from './components/hero-assignment/hero-assignment.component';
+import { MissionControlComponent } from './components/mission-control/mission-control.component';
 
 const HeroServiceStub = {
   createHero: () => { }
@@ -35,6 +36,7 @@ describe('AppComponent', () => {
         StatusBarComponent,
         ToolbarComponent,
         HeroAssignmentComponent,
+        MissionControlComponent,
       ],
       imports: [
         FormsModule,
