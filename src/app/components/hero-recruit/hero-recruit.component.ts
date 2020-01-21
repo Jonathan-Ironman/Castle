@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { GameService } from 'src/app/services/game.service';
 import { HeroActions } from '../../store/actions/hero.actions';
 import { AppState } from '../../store/reducers';
 import { ResourceActions } from '../../store/actions/resource.actions';
 import { Hero } from 'src/app/models/hero.model';
+import { HeroSelectors } from '../../store/selectors/hero.selector';
+import { selectResourceState } from '../../store/reducers/index';
 
 @Component({
   selector: 'app-hero-recruit',
@@ -15,7 +16,7 @@ export class HeroRecruitComponent implements OnInit {
   heroes: readonly Hero[];
   gold: Readonly<number>;
 
-  canHireHero(hiringPrice) {
+  canHireHero(hiringPrice: number) {
     return hiringPrice <= this.gold;
   }
 
@@ -29,14 +30,15 @@ export class HeroRecruitComponent implements OnInit {
     this.store.dispatch(ResourceActions.substractGold(hero.hiringFee));
   }
 
-  constructor(private gameService: GameService, private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.gameService.recruitableHeroes$.subscribe(heroes => {
-      this.heroes = heroes;
-    });
-    this.gameService.gold$.subscribe(gold => {
-      this.gold = gold;
-    });
+    this.store.select(HeroSelectors.recruitableHeroes).subscribe(
+      heroes => this.heroes = heroes
+    );
+
+    this.store.select(selectResourceState).subscribe(
+      resourses => this.gold = resourses.gold
+    );
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService } from '../../services/game.service';
+import { Store } from '@ngrx/store';
+import { AppState, selectResourceState } from '../../store/reducers';
 
 @Component({
   selector: 'app-status-bar',
@@ -7,8 +8,8 @@ import { GameService } from '../../services/game.service';
   styleUrls: ['./status-bar.component.scss']
 })
 export class StatusBarComponent implements OnInit {
-  constructor(private gameService: GameService) {}
-  gold: number;
+  constructor(private store: Store<AppState>) { }
+  gold: Readonly<number>;
 
   // subscribeUserList = () =>
   //   this.dbService.getUsers().subscribe(res => {
@@ -17,8 +18,8 @@ export class StatusBarComponent implements OnInit {
   //   });
 
   ngOnInit() {
-    this.gameService.gold$.subscribe(gold => {
-      this.gold = gold;
-    });
+    this.store.select(selectResourceState).subscribe(
+      resourses => this.gold = resourses.gold
+    );
   }
 }
