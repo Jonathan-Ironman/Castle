@@ -31,19 +31,21 @@ export class HeroService {
   }
 
   createHero(level: number): Hero {
+    const id = this.idCount++;
     const gender = this.generateHeroGender();
-    const hero = new Hero({
-      id: this.idCount++,
-      name: this.generateHeroName(gender),
-      gender,
-      level,
-      combat: MathHelpers.getRandomInt(level * 3, level * 5),
-      tactics: MathHelpers.getRandomInt(level * 3, level * 5),
-      valor: MathHelpers.getRandomInt(level * 3, level * 5),
-      missionFee: 10,
-      hiringFee: MathHelpers.chance(50) && 100 || 2000,
+    const name = this.generateHeroName(gender);
+    const combat = MathHelpers.getRandomInt(level * 1, level * 25);
+    const tactics = MathHelpers.getRandomInt(level * 1, level * 25);
+    const valor = MathHelpers.getRandomInt(level * 1, level * 25);
+
+    const combinedSkills = combat + tactics + valor;
+
+    const hiringFee = MathHelpers.getRandomInt(combinedSkills * 1.1, combinedSkills * 1.6);
+    const missionFee = MathHelpers.getRandomInt(combinedSkills * 0.3, combinedSkills * 0.4);
+
+    return new Hero({
+      id, name, gender, level, combat, tactics, valor, missionFee, hiringFee,
     });
-    return hero;
   }
 
   constructor(private store: Store<AppState>) { }

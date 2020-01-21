@@ -54,15 +54,9 @@ export class GameService {
     // Uuuuuh
     this.heroes$.subscribe(heroes => (this.heroes = heroes));
 
-    this.createReport('Yaaa', '');
-    this.createReport('', 'Eheheee');
     this.createReport('Welcome', 'Today you found a castle, you now own a castle.');
 
-    for (let i = 0; i < 3; i++) {
-      this.hireHero(heroService.createHero(1));
-    }
-
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 4; i++) {
       this.addRecruitableHero(heroService.createHero(1));
     }
   }
