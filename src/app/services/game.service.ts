@@ -12,6 +12,7 @@ import { ReportType } from '../misc/report-type.enum';
 import { Mission } from 'src/app/models/mission.model';
 import { MissionActions } from '../store/actions/mission.actions';
 import { uniqueMissions } from '../misc/missions';
+import { HeroSelectors } from '../store/selectors/hero.selector';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,6 @@ import { uniqueMissions } from '../misc/missions';
 export class GameService {
   gold$: Observable<Readonly<number>>;
   heroes$: Observable<readonly Hero[]>;
-  reports$: Observable<readonly Report[]>;
   recruitableHeroes$: Observable<readonly Hero[]>;
   heroes: readonly Hero[];
 
@@ -54,9 +54,8 @@ export class GameService {
 
   constructor(private store: Store<AppState>, heroService: HeroService) {
     this.gold$ = store.select(state => state.resources.gold);
-    this.heroes$ = store.select(state => state.heroes.myHeroes);
-    this.recruitableHeroes$ = store.select(state => state.heroes.recruitableHeroes);
-    this.reports$ = store.select(state => state.reports);
+    this.heroes$ = store.select(HeroSelectors.hiredHeroes);
+    this.recruitableHeroes$ = store.select(HeroSelectors.recruitableHeroes);
 
     // Uuuuuh
     this.heroes$.subscribe(heroes => (this.heroes = heroes));
