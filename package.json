@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "deploy": "ng test --browsers ChromeHeadless --watch=false && ng build --prod && firebase deploy",
-    "cmdtest": "ng test --browsers ChromeHeadless --watch=false"
+    "cmdtest": "ng test --browsers ChromeHeadless"
   },
   "private": true,
   "dependencies": {
