@@ -13,21 +13,26 @@ import { AppState } from '../store/reducers';
 import { HeroSelectors } from '../store/selectors/hero.selector';
 import { ResourceSelectors } from '../store/selectors/resource.selector';
 import { HeroService } from './hero.service';
+import { MissionSelectors } from '../store/selectors/mission.selector';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-  heroes: readonly Hero[];
-  gold: Readonly<number>;
+  private hiredHeroes: readonly Hero[];
+  private gold: Readonly<number>;
+  private missionsWithAssignments: readonly Mission[];
   private init = false;
 
   constructor(private store: Store<AppState>, private heroService: HeroService) {
     store.select(HeroSelectors.hiredHeroes).subscribe(
-      heroes => this.heroes = heroes
+      heroes => this.hiredHeroes = heroes
     );
     store.select(ResourceSelectors.gold).subscribe(
       gold => this.gold = gold
+    );
+    store.select(MissionSelectors.missionsWithAssignments).subscribe(
+      missionsWithAssignments => this.missionsWithAssignments = missionsWithAssignments
     );
   }
 
