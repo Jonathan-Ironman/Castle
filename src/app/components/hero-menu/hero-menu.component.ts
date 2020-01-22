@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService } from '../../services/game.service';
+import { Store } from '@ngrx/store';
 import { Hero } from 'src/app/models/hero.model';
+import { HeroSelectors } from 'src/app/store/selectors/hero.selector';
+import { AppState } from '../../store/reducers';
 
 @Component({
   selector: 'app-hero-menu',
@@ -9,11 +11,11 @@ import { Hero } from 'src/app/models/hero.model';
 })
 export class HeroMenuComponent implements OnInit {
   heroes: readonly Hero[];
-  constructor(private gameService: GameService) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.gameService.heroes$.subscribe(heroes => {
-      this.heroes = heroes;
-    });
+    this.store.select(HeroSelectors.hiredHeroes).subscribe(
+      heroes => this.heroes = heroes
+    );
   }
 }
