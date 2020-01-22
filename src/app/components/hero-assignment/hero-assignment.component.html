@@ -6,11 +6,12 @@
             {{ hero.valor }}
         </mat-card-subtitle>
 
-        <app-action-button [ngClass]="{ 'warn': !!hero.assignment }" *ngIf="hero.assignment !== mission"
+        <app-action-button [ngClass]="{ 'warn': !!hero.assignment }" *ngIf="hero.assignment !== mission.id"
             (click)="assignHeroToMission(hero)" class="assign">
             Assign
         </app-action-button>
-        <app-action-button *ngIf="hero.assignment === mission" (click)="unassignHeroFromMission(hero)" class="assign">
+        <app-action-button *ngIf="hero.assignment === mission.id" (click)="unassignHeroFromMission(hero)"
+            class="assign">
             Unassign
         </app-action-button>
 

@@ -30,7 +30,7 @@ const reducer = createReducer(
     return { ...state, recruitableHeroes };
   }),
   on(HeroActions.assignMissionToHero, (state, payload) => {
-    payload.hero.assignment = payload.mission;
+    payload.hero.assignment = payload.missionId;
     return state;
   }),
   on(HeroActions.unassignMissionFromHero, (state, payload) => {

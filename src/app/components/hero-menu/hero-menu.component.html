@@ -2,7 +2,7 @@
   <div *ngFor="let hero of heroes; let lastItem = last">
     <mat-card-title>{{ hero.name }}</mat-card-title>
     <mat-card-subtitle>Level {{ hero.level }}
-      <span *ngIf="!!hero.assignment"> | Assignment: {{ hero.assignment.title }}</span>
+      <span *ngIf="!!hero.assignment"> | Assignment: {{ hero.assignment }}</span>
     </mat-card-subtitle>
     <mat-card-content>
       Combat {{ hero.combat }}<br />

@@ -12,7 +12,7 @@ export class Hero {
   valor: number;
   hiringFee: number;
   missionFee: number;
-  assignment?: Mission;
+  assignment?: Mission['id'];
 
   constructor(hero: Hero) {
     Object.assign(this, hero);

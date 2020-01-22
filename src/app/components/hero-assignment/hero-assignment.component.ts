@@ -24,7 +24,7 @@ export class HeroAssignmentComponent implements OnInit {
     if (!this.mission) {
       return console.error('Mission undefined');
     }
-    this.store.dispatch(HeroActions.assignMissionToHero({ hero, mission: this.mission }));
+    this.store.dispatch(HeroActions.assignMissionToHero({ hero, missionId: this.mission.id }));
   }
 
   unassignHeroFromMission(hero: Hero) {

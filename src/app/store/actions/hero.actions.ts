@@ -8,6 +8,6 @@ export const HeroActions = {
   hireHero: createAction('[Hero] Hire hero', props<Hero>()),
   addRecruitableHero: createAction('[Hero] Add recruitable hero', props<Hero>()),
   removeRecruitableHero: createAction('[Hero] Remove recruitable hero', props<Hero>()),
-  assignMissionToHero: createAction('[Hero] Assign mission to hero', props<{ mission: Mission, hero: Hero }>()),
+  assignMissionToHero: createAction('[Hero] Assign mission to hero', props<{ missionId: Mission['id'], hero: Hero }>()),
   unassignMissionFromHero: createAction('[Hero] Unassign mission', props<{ hero: Hero }>()),
 };
