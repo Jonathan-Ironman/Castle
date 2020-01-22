@@ -13,15 +13,14 @@ import { Mission } from 'src/app/models/mission.model';
 import { MissionActions } from '../store/actions/mission.actions';
 import { uniqueMissions } from '../misc/missions';
 import { HeroSelectors } from '../store/selectors/hero.selector';
+import { ResourceSelectors } from '../store/selectors/resource.selector';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-  gold$: Observable<Readonly<number>>;
-  heroes$: Observable<readonly Hero[]>;
-  recruitableHeroes$: Observable<readonly Hero[]>;
   heroes: readonly Hero[];
+  gold: Readonly<number>;
 
   addGold(amount: number) {
     this.store.dispatch(ResourceActions.addGold(amount));
@@ -49,16 +48,17 @@ export class GameService {
   }
 
   handleTick() {
+    // TODO ADVENTUUUURE
     this.createReport('Ooh wee', 'Mad adventures did you have');
   }
 
   constructor(private store: Store<AppState>, heroService: HeroService) {
-    this.gold$ = store.select(state => state.resources.gold);
-    this.heroes$ = store.select(HeroSelectors.hiredHeroes);
-    this.recruitableHeroes$ = store.select(HeroSelectors.recruitableHeroes);
-
-    // Uuuuuh
-    this.heroes$.subscribe(heroes => (this.heroes = heroes));
+    store.select(HeroSelectors.hiredHeroes).subscribe(
+      heroes => this.heroes = heroes
+    );
+    store.select(ResourceSelectors.gold).subscribe(
+      gold => this.gold = gold
+    );
 
     this.createReport('Welcome', 'Today you found a castle, you now own a castle.');
 
