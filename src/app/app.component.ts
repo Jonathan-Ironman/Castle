@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { UserActions } from './store/actions/user.actions';
 import { AppState } from './store/reducers';
 import * as Hammer from 'hammerjs';
+import { GameService } from './services/game.service';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +13,12 @@ import * as Hammer from 'hammerjs';
 export class AppComponent implements OnInit {
   title = 'Castle';
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private gameService: GameService, private store: Store<AppState>) { }
 
   ngOnInit() {
-    const hammer = new Hammer(document.documentElement);
+    this.gameService.gameInit();
 
+    const hammer = new Hammer(document.documentElement);
     hammer.on('swipeleft swiperight', event => {
       if (event.type === 'swiperight') {
         this.store.dispatch(UserActions.swipeRight());

@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Mission } from 'src/app/models/mission.model';
+import { uniqueMissions } from '../misc/missions';
+import { ReportType } from '../misc/report-type.enum';
 import { Hero } from '../models/hero.model';
+import { Report } from '../models/report.model';
 import { HeroActions } from '../store/actions/hero.actions';
+import { MissionActions } from '../store/actions/mission.actions';
+import { ReportActions } from '../store/actions/report.actions';
 import { ResourceActions } from '../store/actions/resource.actions';
 import { AppState } from '../store/reducers';
-import { HeroService } from './hero.service';
-import { Report } from '../models/report.model';
-import { ReportActions } from '../store/actions/report.actions';
-import { ReportType } from '../misc/report-type.enum';
-import { Mission } from 'src/app/models/mission.model';
-import { MissionActions } from '../store/actions/mission.actions';
-import { uniqueMissions } from '../misc/missions';
 import { HeroSelectors } from '../store/selectors/hero.selector';
 import { ResourceSelectors } from '../store/selectors/resource.selector';
+import { HeroService } from './hero.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +20,16 @@ import { ResourceSelectors } from '../store/selectors/resource.selector';
 export class GameService {
   heroes: readonly Hero[];
   gold: Readonly<number>;
+  private init = false;
+
+  constructor(private store: Store<AppState>, private heroService: HeroService) {
+    store.select(HeroSelectors.hiredHeroes).subscribe(
+      heroes => this.heroes = heroes
+    );
+    store.select(ResourceSelectors.gold).subscribe(
+      gold => this.gold = gold
+    );
+  }
 
   addGold(amount: number) {
     this.store.dispatch(ResourceActions.addGold(amount));
@@ -52,20 +61,18 @@ export class GameService {
     this.createReport('Ooh wee', 'Mad adventures did you have');
   }
 
-  constructor(private store: Store<AppState>, heroService: HeroService) {
-    store.select(HeroSelectors.hiredHeroes).subscribe(
-      heroes => this.heroes = heroes
-    );
-    store.select(ResourceSelectors.gold).subscribe(
-      gold => this.gold = gold
-    );
+  gameInit() {
+    if (this.init) {
+      return;
+    }
 
     this.createReport('Welcome', 'Today you found a castle, you now own a castle.');
-
     uniqueMissions.forEach(this.addActiveMission.bind(this));
 
     for (let i = 0; i < 4; i++) {
-      this.addRecruitableHero(heroService.createHero(1));
+      this.addRecruitableHero(this.heroService.createHero(1));
     }
+
+    this.init = true;
   }
 }
