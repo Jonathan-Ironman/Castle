@@ -23,6 +23,7 @@ import { reducers } from './store/reducers';
 import { MaterialModule } from './material/material.module';
 import { HeroAssignmentComponent } from './components/hero-assignment/hero-assignment.component';
 import { MissionControlComponent } from './components/mission-control/mission-control.component';
+import { metaReducers } from './store/reducers/index';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { MissionControlComponent } from './components/mission-control/mission-co
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     // StoreDevtoolsModule.instrumentOnlyWithExtension()
     ServiceWorkerModule.register('ngsw-worker.js', {
