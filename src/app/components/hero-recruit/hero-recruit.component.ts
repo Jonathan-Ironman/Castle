@@ -25,8 +25,8 @@ export class HeroRecruitComponent implements OnInit {
       return;
     }
 
-    this.store.dispatch(HeroActions.hireHero(hero));
-    this.store.dispatch(HeroActions.removeRecruitableHero(hero));
+    this.store.dispatch(HeroActions.hireHero({ hero }));
+    this.store.dispatch(HeroActions.removeRecruitableHero({ hero }));
     this.store.dispatch(ResourceActions.substractGold(hero.hiringFee));
   }
 

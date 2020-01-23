@@ -41,11 +41,11 @@ export class GameService {
   }
 
   hireHero(hero: Hero) {
-    this.store.dispatch(HeroActions.hireHero(hero));
+    this.store.dispatch(HeroActions.hireHero({ hero }));
   }
 
   addRecruitableHero(hero: Hero) {
-    this.store.dispatch(HeroActions.addRecruitableHero(hero));
+    this.store.dispatch(HeroActions.addRecruitableHero({ hero }));
   }
 
   addActiveMission(mission: Mission) {
@@ -61,8 +61,29 @@ export class GameService {
     this.store.dispatch(ReportActions.addReport(report));
   }
 
+  // TODO return MissionResult
+  handleMission(mission: Mission) {
+    const heroes = this.hiredHeroes.filter(h => h.assignment === mission.id);
+    const combat = heroes.reduce((accumulator, hero) => accumulator + hero.combat, 0);
+    const valor = heroes.reduce((accumulator, hero) => accumulator + hero.valor, 0);
+    const tactics = heroes.reduce((accumulator, hero) => accumulator + hero.tactics, 0);
+    const adversity = mission.adversity;
+
+    if ((combat + tactics) / 2 > adversity.combat + adversity.tactics) {
+      this.createReport('Glorious victory!',
+        `${heroes.map(h => h.name).join(', ')} crushed mission ${mission.title}!`);
+    } else if (combat + tactics < (adversity.combat + adversity.tactics) / 2) {
+      this.createReport('Massacred!',
+        `${heroes.map(h => h.name).join(', ')} are killed in mission ${mission.title}!`);
+      // TODO kill em
+    } else {
+      this.createReport('Happenings',
+        `${heroes.map(h => h.name).join(', ')} did things in mission ${mission.title}!`);
+    }
+  }
+
   handleTick() {
-    // TODO ADVENTUUUURE
+    this.missionsWithAssignments.forEach(this.handleMission.bind(this));
     this.createReport('Ooh wee', 'Mad adventures did you have');
   }
 

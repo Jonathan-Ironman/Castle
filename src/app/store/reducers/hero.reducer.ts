@@ -2,8 +2,6 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { HeroActions } from '../actions/hero.actions';
 import { Hero } from 'src/app/models/hero.model';
 
-// export const heroFeatureKey = 'hero';
-
 // TODO: merge fields maybe
 export interface HeroState {
   myHeroes: Readonly<Array<Hero>>;
@@ -17,25 +15,36 @@ export const initialState: Readonly<HeroState> = {
 
 const reducer = createReducer(
   initialState,
-  on(HeroActions.hireHero, (state, hero) => {
-    const myHeroes = [...state.myHeroes, hero];
+  on(HeroActions.hireHero, (state, payload) => {
+    const myHeroes = [...state.myHeroes, payload.hero];
     return { ...state, myHeroes };
   }),
-  on(HeroActions.addRecruitableHero, (state, hero) => {
-    const recruitableHeroes = [...state.recruitableHeroes, hero];
+  on(HeroActions.addRecruitableHero, (state, payload) => {
+    const recruitableHeroes = [...state.recruitableHeroes, payload.hero];
     return { ...state, recruitableHeroes };
   }),
-  on(HeroActions.removeRecruitableHero, (state, hero) => {
-    const recruitableHeroes = state.recruitableHeroes.filter(x => x.id !== hero.id);
+  on(HeroActions.removeRecruitableHero, (state, payload) => {
+    const recruitableHeroes = state.recruitableHeroes.filter(x => x.id !== payload.hero.id);
     return { ...state, recruitableHeroes };
   }),
   on(HeroActions.assignMissionToHero, (state, payload) => {
-    payload.hero.assignment = payload.missionId;
-    return state;
+    const updatedHero = { ...payload.hero, assignment: payload.missionId };
+    const heroes = Array.from(state.myHeroes)
+      .map(hero =>
+        updatedHero.id === hero.id &&
+        updatedHero ||
+        hero);
+    return { ...state, myHeroes: heroes };
   }),
   on(HeroActions.unassignMissionFromHero, (state, payload) => {
-    delete payload.hero.assignment;
-    return state;
+    const updatedHero = { ...payload.hero };
+    delete updatedHero.assignment;
+    const heroes = Array.from(state.myHeroes)
+      .map(hero =>
+        updatedHero.id === hero.id &&
+        updatedHero ||
+        hero);
+    return { ...state, myHeroes: heroes };
   })
 );
 

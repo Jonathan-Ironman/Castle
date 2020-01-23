@@ -20,12 +20,26 @@ export const uniqueMissions: Mission[] = [
         description: 'Help Tim burninate the evil rabbit',
         rewards: [new RewardGold(100)],
         adversity: new Adversity({
-            combat: 100,
-            tactics: 1,
+            combat: 40,
+            tactics: 40,
             fear: 100,
             cunning: 10,
             paranormal: true
         }),
         intelligence: new Intel(10, 1)
+    },
+    {
+        id: 'm3',
+        title: 'Death incarnate',
+        description: 'Help Tim burninate the evil rabbit',
+        rewards: [new RewardGold(100)],
+        adversity: new Adversity({
+            combat: 1000,
+            tactics: 1000,
+            fear: 1000,
+            cunning: 1000,
+            paranormal: true
+        }),
+        intelligence: new Intel(1000, 1)
     }
 ];
