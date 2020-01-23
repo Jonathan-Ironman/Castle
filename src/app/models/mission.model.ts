@@ -9,8 +9,7 @@ export class Mission {
     description: string;
     rewards: Reward[];
     adversity: Adversity;
-    intelligence: Intel;
+    intel: Intel;
     assignments?: Hero[];
     assignmentType?: 'scout' | 'execute';
-    completed?: true;
 }

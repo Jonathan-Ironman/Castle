@@ -1,6 +1,6 @@
 import { Mission } from '../models/mission.model';
 import { Adversity } from '../models/adversity.model';
-import { RewardGold } from '../models/reward.model';
+import { RewardGold, RewardInsight } from '../models/reward.model';
 import { Intel } from '../models/intel.model';
 
 export const uniqueMissions: Mission[] = [
@@ -8,11 +8,11 @@ export const uniqueMissions: Mission[] = [
         id: 'm1',
         title: 'The dead of the gladioles',
         description: 'Fight the evil flowers that lurk in the shadows of big tree',
-        rewards: [new RewardGold(100)],
+        rewards: [new RewardGold(100), new RewardInsight()],
         adversity: new Adversity({
             combat: 10
         }),
-        intelligence: new Intel(10, 1)
+        intel: new Intel(10, 1)
     },
     {
         id: 'm2',
@@ -26,7 +26,7 @@ export const uniqueMissions: Mission[] = [
             cunning: 10,
             paranormal: true
         }),
-        intelligence: new Intel(10, 1)
+        intel: new Intel(10, 1)
     },
     {
         id: 'm3',
@@ -40,6 +40,6 @@ export const uniqueMissions: Mission[] = [
             cunning: 1000,
             paranormal: true
         }),
-        intelligence: new Intel(1000, 1)
+        intel: new Intel(1000, 1)
     }
 ];

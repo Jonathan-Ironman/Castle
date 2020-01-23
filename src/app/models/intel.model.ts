@@ -1,9 +1,9 @@
 export class Intel {
     cloak: number;
-    intel: number;
+    insight: number;
 
-    constructor(cloak: number, intel: number) {
+    constructor(cloak: number, insight: number) {
         this.cloak = cloak;
-        this.intel = intel;
+        this.insight = insight;
     }
 }

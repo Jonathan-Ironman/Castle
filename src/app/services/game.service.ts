@@ -14,6 +14,8 @@ import { HeroSelectors } from '../store/selectors/hero.selector';
 import { ResourceSelectors } from '../store/selectors/resource.selector';
 import { HeroService } from './hero.service';
 import { MissionSelectors } from '../store/selectors/mission.selector';
+import { RewardType } from '../models/reward.model';
+import { TextHelpers as TH } from '../misc/text-helper';
 
 @Injectable({
   providedIn: 'root'
@@ -61,7 +63,28 @@ export class GameService {
     this.store.dispatch(ReportActions.addReport(report));
   }
 
-  // TODO return MissionResult
+  handleMissionRewards(mission: Mission): string[] {
+    const rewardLog = [];
+    mission.rewards.forEach(r => {
+      switch (r.type) {
+        case RewardType.gold:
+          rewardLog.push(`You gained ${r.amount} gold.`);
+          this.store.dispatch(ResourceActions.addGold(r.amount));
+          break;
+        case RewardType.boost:
+          rewardLog.push(`Something good happened`);
+          break;
+        case RewardType.insight:
+          rewardLog.push(`You've learned something interesting`);
+          break;
+        default:
+          throw new Error('Unknown reward type');
+      }
+    });
+
+    return rewardLog;
+  }
+
   handleMission(mission: Mission) {
     const heroes = this.hiredHeroes.filter(h => h.assignment === mission.id);
     const combat = heroes.reduce((accumulator, hero) => accumulator + hero.combat, 0);
@@ -70,16 +93,23 @@ export class GameService {
     const adversity = mission.adversity;
 
     if ((combat + tactics) / 2 > adversity.combat + adversity.tactics) {
+      const rewardLog = this.handleMissionRewards(mission);
       this.createReport('Glorious victory!',
-        `${heroes.map(h => h.name).join(', ')} crushed mission ${mission.title}!`);
-    } else if (combat + tactics < (adversity.combat + adversity.tactics) / 2) {
-      this.createReport('Massacred!',
-        `${heroes.map(h => h.name).join(', ')} are killed in mission ${mission.title}!`);
-      // TODO kill em
-    } else {
-      this.createReport('Happenings',
-        `${heroes.map(h => h.name).join(', ')} did things in mission ${mission.title}!`);
+        [`\n${TH.listAnd(heroes.map(h => h.name))} crushed mission ${mission.title}!`,
+        ...rewardLog].join('\n'));
+      this.store.dispatch(MissionActions.removeActiveMission(mission));
+      return;
     }
+
+    if (combat + tactics < (adversity.combat + adversity.tactics) / 2) {
+      this.createReport('Massacred!',
+        `${TH.listAnd(heroes.map(h => h.name))} are killed in mission ${mission.title}!`);
+      // TODO kill em
+      return;
+    }
+
+    this.createReport('Happenings',
+      `${TH.listAnd(heroes.map(h => h.name))} did things in mission ${mission.title}!`);
   }
 
   handleTick() {
