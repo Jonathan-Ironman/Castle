@@ -31,7 +31,7 @@ export const uniqueMissions: Mission[] = [
     {
         id: 'm3',
         title: 'Death incarnate',
-        description: 'Help Tim burninate the evil rabbit',
+        description: 'Death wants to tango',
         rewards: [new RewardGold(100)],
         adversity: new Adversity({
             combat: 1000,
