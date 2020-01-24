@@ -47,7 +47,7 @@ import { metaReducers } from './store/reducers/index';
           strictStateImmutability: true,
           strictActionImmutability: true,
           strictStateSerializability: true,
-          strictActionSerializability: true,
+          // strictActionSerializability: true,
         }
       }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
