@@ -40,7 +40,16 @@ import { metaReducers } from './store/reducers/index';
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot(reducers,
+      {
+        metaReducers,
+        runtimeChecks: {
+          strictStateImmutability: true,
+          strictActionImmutability: true,
+          strictStateSerializability: true,
+          strictActionSerializability: true,
+        }
+      }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     // StoreDevtoolsModule.instrumentOnlyWithExtension()
     ServiceWorkerModule.register('ngsw-worker.js', {
