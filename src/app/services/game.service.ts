@@ -16,6 +16,7 @@ import { HeroService } from './hero.service';
 import { MissionSelectors } from '../store/selectors/mission.selector';
 import { RewardType } from '../models/reward.model';
 import { TextHelpers as TH } from '../misc/text-helper';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,11 @@ export class GameService {
   private missionsWithAssignments: readonly Mission[];
   private init = false;
 
-  constructor(private store: Store<AppState>, private heroService: HeroService) {
+  constructor(
+    private store: Store<AppState>,
+    private heroService: HeroService,
+    private dataService: DataService
+  ) {
     store.select(HeroSelectors.hiredHeroes).subscribe(
       heroes => this.hiredHeroes = heroes
     );
@@ -119,6 +124,12 @@ export class GameService {
 
   gameInit() {
     if (this.init) {
+      return;
+    }
+
+    if (this.dataService.hasData()) {
+      this.dataService.loadData();
+      this.init = true;
       return;
     }
 
