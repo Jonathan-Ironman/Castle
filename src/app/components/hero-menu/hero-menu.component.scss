@@ -11,7 +11,12 @@ mat-card-title {
   padding-top: 0.5em;
 }
 
-app-action-button {
+.heroButton {
+  float: right;
+  margin-top: -1em;
+}
+
+app-action-button.screenButton {
   position: absolute;
   right: 0;
   bottom: 0;

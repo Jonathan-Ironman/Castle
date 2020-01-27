@@ -6,8 +6,12 @@ import { DatabaseService } from './database.service';
 
 describe('DatabaseService', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [StoreModule.forRoot(reducers)],
-    providers: [{ provide: AngularFirestore, useValue: {} }]
+    imports: [
+      StoreModule.forRoot(reducers)
+    ],
+    providers: [
+      { provide: AngularFirestore, useValue: {} }
+    ]
   }));
 
   it('should be created', () => {

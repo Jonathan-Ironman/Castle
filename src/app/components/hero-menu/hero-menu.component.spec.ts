@@ -1,10 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HeroMenuComponent } from './hero-menu.component';
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from 'src/app/store/reducers';
 import { MaterialModule } from '../../material/material.module';
 import { ActionButtonComponent } from '../action-button/action-button.component';
-import { FormsModule } from '@angular/forms';
+import { HeroMenuComponent } from './hero-menu.component';
+import { appRoutes } from 'src/app/routes';
 
 describe('HeroMenuComponent', () => {
   let component: HeroMenuComponent;
@@ -15,7 +17,10 @@ describe('HeroMenuComponent', () => {
       imports: [
         StoreModule.forRoot(reducers),
         MaterialModule,
-        FormsModule
+        FormsModule,
+        RouterTestingModule.withRoutes(
+          appRoutes.filter(r => r.component === HeroMenuComponent)
+        )
       ],
       declarations: [
         HeroMenuComponent,

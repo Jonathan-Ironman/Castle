@@ -7,7 +7,6 @@ import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
 import { ActionButtonComponent } from './components/action-button/action-button.component';
 import { HeroMenuComponent } from './components/hero-menu/hero-menu.component';
-import { HeroRecruitComponent } from './components/hero-recruit/hero-recruit.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { MissionSectionComponent } from './components/mission-section/mission-section.component';
 import { StatusBarComponent } from './components/status-bar/status-bar.component';
@@ -16,7 +15,6 @@ import { MaterialModule } from './material/material.module';
 import { appRoutes } from './routes';
 import { HeroService } from './services/hero.service';
 import { reducers } from './store/reducers';
-import { HeroAssignmentComponent } from './components/hero-assignment/hero-assignment.component';
 import { MissionControlComponent } from './components/mission-control/mission-control.component';
 
 const HeroServiceStub = {
@@ -30,12 +28,10 @@ describe('AppComponent', () => {
         ActionButtonComponent,
         AppComponent,
         HeroMenuComponent,
-        HeroRecruitComponent,
         MenuComponent,
         MissionSectionComponent,
         StatusBarComponent,
         ToolbarComponent,
-        HeroAssignmentComponent,
         MissionControlComponent,
       ],
       imports: [

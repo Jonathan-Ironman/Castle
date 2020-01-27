@@ -1,17 +1,37 @@
+<h1 *ngIf="screenType === 'assign'">Mission: {{ (mission$ | async)?.title }}</h1>
 <mat-card *ngIf="!!heroes.length">
-  <div *ngFor="let hero of heroes; let lastItem = last">
+  <ng-container *ngFor="let hero of heroes; let lastItem = last">
     <mat-card-title>{{ hero.name }}</mat-card-title>
     <mat-card-subtitle>Level {{ hero.level }}
       <span *ngIf="!!hero.assignment"> | Assignment: {{ hero.assignment }}</span>
     </mat-card-subtitle>
+
+    <ng-container *ngIf="screenType === 'assign'">
+      <app-action-button [ngClass]="{ 'warn': !!hero.assignment }" *ngIf="hero.assignment !== mission.id"
+        (click)="assignHeroToMission(hero)" class="heroButton">
+        Assign
+      </app-action-button>
+      <app-action-button *ngIf="hero.assignment === mission.id" (click)="unassignHeroFromMission(hero)"
+        class="heroButton">
+        Unassign
+      </app-action-button>
+    </ng-container>
+
+    <app-action-button *ngIf="screenType === 'recruit'" (click)="canHireHero(hero.hiringFee) && recruit(hero)"
+      [enabled]="canHireHero(hero.hiringFee)" class="heroButton">Hire:
+      {{hero.hiringFee}}
+    </app-action-button>
+
     <mat-card-content>
       Combat {{ hero.combat }}<br />
       Tactics {{ hero.tactics }}<br />
       Valor {{ hero.valor }}<br />
       Mission fee {{ hero.missionFee }}
     </mat-card-content>
+
     <mat-divider *ngIf="!lastItem"></mat-divider>
-  </div>
+  </ng-container>
 </mat-card>
 
-<app-action-button *ngIf="!heroes.length" routerLink="/tavern">Hire heroes</app-action-button>
+<app-action-button class="screenButton" *ngIf="!heroes.length && screenType === 'main'" routerLink="/tavern">Hire heroes
+</app-action-button>
