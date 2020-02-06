@@ -7,7 +7,7 @@ export const initialState: readonly Report[] = [];
 
 const reducer = createReducer(
   initialState,
-  on(ReportActions.addReport, (state, report) => [report, ...state]),
+  on(ReportActions.addReport, (state, payload) => [payload.report, ...state]),
 );
 
 export function reportReducer(state: Readonly<ReportState> | undefined, action: Action) {

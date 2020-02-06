@@ -12,12 +12,12 @@ export const initialState: MissionState = {
 
 const reducer = createReducer(
   initialState,
-  on(MissionActions.addActiveMission, (state, mission) => {
-    const activeMissions = [...state.activeMissions, mission];
+  on(MissionActions.addActiveMission, (state, payload) => {
+    const activeMissions = [...state.activeMissions, payload.mission];
     return { ...state, activeMissions };
   }),
-  on(MissionActions.removeActiveMission, (state, mission) => {
-    const activeMissions = state.activeMissions.filter(x => x.id !== mission.id);
+  on(MissionActions.removeActiveMission, (state, payload) => {
+    const activeMissions = state.activeMissions.filter(x => x.id !== payload.mission.id);
     return { ...state, activeMissions };
   }),
 );

@@ -56,7 +56,7 @@ export class GameService {
   }
 
   addActiveMission(mission: Mission) {
-    this.store.dispatch(MissionActions.addActiveMission(mission));
+    this.store.dispatch(MissionActions.addActiveMission({ mission }));
   }
 
   createReport(title: string, text: string) {
@@ -65,7 +65,7 @@ export class GameService {
     const type = ReportType.mission;
     const report = new Report({ id, title, text, tick, reportType: type });
 
-    this.store.dispatch(ReportActions.addReport(report));
+    this.store.dispatch(ReportActions.addReport({ report }));
   }
 
   handleMissionRewards(mission: Mission): string[] {
@@ -102,7 +102,7 @@ export class GameService {
       this.createReport('Glorious victory!',
         [`\n${TH.listAnd(heroes.map(h => h.name))} crushed mission ${mission.title}!`,
         ...rewardLog].join('\n'));
-      this.store.dispatch(MissionActions.removeActiveMission(mission));
+      this.store.dispatch(MissionActions.removeActiveMission({ mission }));
       return;
     }
 

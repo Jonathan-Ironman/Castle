@@ -1,13 +1,22 @@
 import { resourceReducer, initialState } from './resource.reducer';
+import { ResourceActions } from '../actions/resource.actions';
 
 describe('Resource Reducer', () => {
-  describe('an unknown action', () => {
-    it('should return the previous state', () => {
-      const action = {} as any;
+  it('should return the previous state', () => {
+    const action = {} as any;
+    const result = resourceReducer(initialState, action);
+    expect(result).toBe(initialState);
+  });
 
-      const result = resourceReducer(initialState, action);
+  it('should add gold', () => {
+    const action = ResourceActions.addGold(10);
+    const result = resourceReducer(initialState, action);
+    expect(result.gold).toEqual(initialState.gold + 10);
+  });
 
-      expect(result).toBe(initialState);
-    });
+  it('should subtract gold', () => {
+    const action = ResourceActions.substractGold(10);
+    const result = resourceReducer(initialState, action);
+    expect(result.gold).toEqual(initialState.gold - 10);
   });
 });
