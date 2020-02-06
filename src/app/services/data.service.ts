@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AppState } from '../store/reducers/index';
 import { Store } from '@ngrx/store';
-import { debounceTime } from 'rxjs/operators';
-import { merge, of } from 'rxjs';
+import { AppState } from '../store/reducers';
+
+export const localStorageKey = 'gameState';
 
 @Injectable({
   providedIn: 'root'
@@ -16,20 +16,20 @@ export class DataService {
   }
 
   hasData() {
-    return localStorage.getItem('gameState') !== null;
+    return localStorage.getItem(localStorageKey) !== null;
   }
 
   clearData() {
-    return localStorage.removeItem('gameState');
+    return localStorage.removeItem(localStorageKey);
   }
 
   async saveGameState(state: AppState) {
-    localStorage.setItem('gameState', JSON.stringify(state));
+    localStorage.setItem(localStorageKey, JSON.stringify(state));
   }
 
   loadData() {
     // TODO
-    // const data = JSON.parse(localStorage.getItem('gameState'));
+    const data = JSON.parse(localStorage.getItem(localStorageKey) || null);
     // merge(this.store, of(data));
   }
 }
