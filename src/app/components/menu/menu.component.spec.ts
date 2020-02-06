@@ -1,4 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { StoreModule } from '@ngrx/store';
+import { storeConfig } from 'src/app/app.module';
+import { reducers } from 'src/app/store/reducers';
 import { MaterialModule } from '../../material/material.module';
 import { MenuComponent } from './menu.component';
 
@@ -8,7 +11,10 @@ describe('MenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MaterialModule],
+      imports: [
+        MaterialModule,
+        StoreModule.forRoot(reducers, storeConfig),
+      ],
       declarations: [MenuComponent]
     })
       .compileComponents();

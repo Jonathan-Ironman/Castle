@@ -28,23 +28,23 @@ describe('DataService', () => {
 
   it('should store data', () => {
     const fakeState = { test: true } as unknown as AppState;
-    service.saveGameState(fakeState);
+    DataService.saveGameState(fakeState);
     expect(localStorageSpy.setItem).toHaveBeenCalledWith(localStorageKey, JSON.stringify(fakeState));
   });
 
   it('should retrieve data', () => {
-    service.loadData();
+    DataService.loadData();
     expect(localStorageSpy.getItem).toHaveBeenCalledWith(localStorageKey);
     // TODO actual load
   });
 
   it('should check for data', () => {
-    service.hasData();
+    DataService.hasData();
     expect(localStorageSpy.getItem).toHaveBeenCalledWith(localStorageKey);
   });
 
   it('should clear data', () => {
-    service.clearData();
+    DataService.clearData();
     expect(localStorageSpy.removeItem).toHaveBeenCalledWith(localStorageKey);
   });
 });
