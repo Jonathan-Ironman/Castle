@@ -35,6 +35,7 @@ describe('DataService', () => {
   it('should retrieve data', () => {
     service.loadData();
     expect(localStorageSpy.getItem).toHaveBeenCalledWith(localStorageKey);
+    // TODO actual load
   });
 
   it('should check for data', () => {
