@@ -2,24 +2,22 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store, StoreModule } from '@ngrx/store';
+import { storeConfig } from 'src/app/app.module';
 import { uniqueMissions } from 'src/app/misc/missions';
 import { appRoutes } from 'src/app/routes';
 import { HeroActions } from 'src/app/store/actions/hero.actions';
+import { ResourceActions } from 'src/app/store/actions/resource.actions';
 import { reducers } from 'src/app/store/reducers';
 import { MaterialModule } from '../../material/material.module';
-import { HeroService } from '../../services/hero.service';
 import { AppState } from '../../store/reducers';
+import { fakeHero } from '../../testing/fakeHero';
 import { ActionButtonComponent } from '../action-button/action-button.component';
 import { HeroMenuComponent } from './hero-menu.component';
-import { ResourceActions } from 'src/app/store/actions/resource.actions';
-import { Hero } from 'src/app/models/hero.model';
-import { storeConfig } from 'src/app/app.module';
 
 describe('HeroMenuComponent', () => {
   let component: HeroMenuComponent;
   let fixture: ComponentFixture<HeroMenuComponent>;
   let store: Store<AppState>;
-  let hero: Hero;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -42,10 +40,6 @@ describe('HeroMenuComponent', () => {
     fixture = TestBed.createComponent(HeroMenuComponent);
     component = fixture.componentInstance;
     store = TestBed.get<Store<AppState>>(Store);
-
-    const heroService = new HeroService(store);
-    hero = heroService.createHero(1);
-
     fixture.detectChanges();
   });
 
@@ -80,11 +74,11 @@ describe('HeroMenuComponent', () => {
   it('should dispatch assignMissionToHero', () => {
     // Arrange
     component.mission = uniqueMissions[0];
-    const action = HeroActions.assignMissionToHero({ hero, missionId: component.mission.id });
+    const action = HeroActions.assignMissionToHero({ hero: fakeHero, missionId: component.mission.id });
     const spy = spyOn(store, 'dispatch');
 
     // Act
-    component.assignHeroToMission(hero);
+    component.assignHeroToMission(fakeHero);
 
     // Assert
     expect(spy).toHaveBeenCalledWith(action);
@@ -96,7 +90,7 @@ describe('HeroMenuComponent', () => {
     const spy = spyOn(store, 'dispatch');
 
     // Act
-    component.assignHeroToMission(hero);
+    component.assignHeroToMission(fakeHero);
 
     // Assert
     expect(spy).toHaveBeenCalledTimes(0);
@@ -104,11 +98,11 @@ describe('HeroMenuComponent', () => {
 
   it('should dispatch unassignMissionFromHero', () => {
     // Arrange
-    const action = HeroActions.unassignMissionFromHero({ hero });
+    const action = HeroActions.unassignMissionFromHero({ hero: fakeHero });
     const spy = spyOn(store, 'dispatch');
 
     // Act
-    component.unassignHeroFromMission(hero);
+    component.unassignHeroFromMission(fakeHero);
 
     // Assert
     expect(spy).toHaveBeenCalledWith(action);
@@ -116,15 +110,15 @@ describe('HeroMenuComponent', () => {
 
   it('should dispatch recruit actions', () => {
     // Arrange
-    const hireAction = HeroActions.hireHero({ hero });
-    const removeAction = HeroActions.removeRecruitableHero({ hero });
-    const goldAction = ResourceActions.substractGold(hero.hiringFee);
+    const hireAction = HeroActions.hireHero({ hero: fakeHero });
+    const removeAction = HeroActions.removeRecruitableHero({ hero: fakeHero });
+    const goldAction = ResourceActions.substractGold(fakeHero.hiringFee);
 
     spyOn(component, 'canHireHero').and.returnValue(true);
     const spy = spyOn(store, 'dispatch');
 
     // Act
-    component.recruit(hero);
+    component.recruit(fakeHero);
 
     // Assert
     expect(spy).toHaveBeenCalledWith(hireAction);
@@ -138,7 +132,7 @@ describe('HeroMenuComponent', () => {
     const spy = spyOn(component, 'canHireHero');
 
     // Act
-    component.recruit(hero);
+    component.recruit(fakeHero);
 
     // Assert
     expect(spy).toHaveBeenCalledTimes(1);
