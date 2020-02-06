@@ -98,6 +98,8 @@ export class GameService {
     const tactics = heroes.reduce((accumulator, hero) => accumulator + hero.tactics, 0);
     const adversity = mission.adversity;
 
+    // TODO unassign missions somewhere
+
     if ((combat + tactics) / 2 > adversity.combat + adversity.tactics) {
       const rewardLog = this.handleMissionRewards(mission);
       this.createReport('Glorious victory!',
