@@ -17,6 +17,7 @@ import { MissionSelectors } from '../store/selectors/mission.selector';
 import { RewardType } from '../models/reward.model';
 import { TextHelpers as TH } from '../misc/text-helper';
 import { DataService } from './data.service';
+import { DataActions } from '../store/actions/data.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -123,8 +124,10 @@ export class GameService {
   }
 
   newGame() {
-    this.dataService.clearData();
-    window.location.reload();
+    DataService.clearData();
+    this.store.dispatch(DataActions.resetState());
+    this.init = false;
+    this.gameInit();
   }
 
   gameInit() {
@@ -132,8 +135,8 @@ export class GameService {
       return;
     }
 
-    if (this.dataService.hasData()) {
-      this.dataService.loadData();
+    if (DataService.hasData()) {
+      this.store.dispatch(DataActions.loadState());
       this.init = true;
       return;
     }

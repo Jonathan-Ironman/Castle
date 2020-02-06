@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/reducers';
+import { debounceTime } from 'rxjs/operators';
 
 export const localStorageKey = 'gameState';
 
@@ -9,27 +10,25 @@ export const localStorageKey = 'gameState';
 })
 export class DataService {
   constructor(private store: Store<AppState>) {
-    // TODO: effect?
-    // this.store.select(state => state)
-    //   .pipe(debounceTime(100))
-    //   .subscribe(state => this.saveGameState(state));
+    // TODO: effect? meta?
+    this.store.select(state => state)
+      .pipe(debounceTime(100))
+      .subscribe(state => DataService.saveGameState(state));
   }
 
-  hasData() {
+  static hasData() {
     return localStorage.getItem(localStorageKey) !== null;
   }
 
-  clearData() {
-    return localStorage.removeItem(localStorageKey);
+  static clearData() {
+    localStorage.removeItem(localStorageKey);
   }
 
-  async saveGameState(state: AppState) {
+  static saveGameState(state: AppState) {
     localStorage.setItem(localStorageKey, JSON.stringify(state));
   }
 
-  loadData() {
-    // TODO
-    const data = JSON.parse(localStorage.getItem(localStorageKey) || null);
-    // merge(this.store, of(data));
+  static loadData() {
+    return JSON.parse(localStorage.getItem(localStorageKey) || null);
   }
 }
