@@ -88,12 +88,13 @@ describe('HeroMenuComponent', () => {
     // Arrange
     component.mission = undefined;
     const spy = spyOn(store, 'dispatch');
-
+    const errorSpy = spyOn(console, 'error');
     // Act
     component.assignHeroToMission(fakeHero);
 
     // Assert
     expect(spy).toHaveBeenCalledTimes(0);
+    expect(errorSpy).toHaveBeenCalledTimes(1);
   });
 
   it('should dispatch unassignMissionFromHero', () => {
