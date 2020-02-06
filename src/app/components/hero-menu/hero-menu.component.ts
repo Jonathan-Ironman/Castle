@@ -11,6 +11,12 @@ import { switchMap, map, tap } from 'rxjs/operators';
 import { MissionSelectors } from 'src/app/store/selectors/mission.selector';
 import { ResourceActions } from 'src/app/store/actions/resource.actions';
 
+export enum HeroScreenType {
+  main = 'main',
+  recruit = 'recruit',
+  assign = 'assign'
+}
+
 @Component({
   selector: 'app-hero-menu',
   templateUrl: './hero-menu.component.html',
@@ -98,8 +104,3 @@ export class HeroMenuComponent implements OnInit {
   }
 }
 
-export enum HeroScreenType {
-  main = 'main',
-  recruit = 'recruit',
-  assign = 'assign'
-}

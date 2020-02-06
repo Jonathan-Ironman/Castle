@@ -13,6 +13,7 @@ import { ActionButtonComponent } from '../action-button/action-button.component'
 import { HeroMenuComponent } from './hero-menu.component';
 import { ResourceActions } from 'src/app/store/actions/resource.actions';
 import { Hero } from 'src/app/models/hero.model';
+import { storeConfig } from 'src/app/app.module';
 
 describe('HeroMenuComponent', () => {
   let component: HeroMenuComponent;
@@ -23,7 +24,7 @@ describe('HeroMenuComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot(reducers, storeConfig),
         MaterialModule,
         FormsModule,
         RouterTestingModule.withRoutes(

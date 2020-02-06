@@ -23,6 +23,16 @@ import { MaterialModule } from './material/material.module';
 import { MissionControlComponent } from './components/mission-control/mission-control.component';
 import { metaReducers } from './store/reducers/index';
 
+export const storeConfig = {
+  metaReducers,
+  runtimeChecks: {
+    strictStateImmutability: true,
+    strictActionImmutability: true,
+    strictStateSerializability: true,
+    // strictActionSerializability: true,
+  }
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,16 +46,7 @@ import { metaReducers } from './store/reducers/index';
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot(reducers,
-      {
-        metaReducers,
-        runtimeChecks: {
-          strictStateImmutability: true,
-          strictActionImmutability: true,
-          strictStateSerializability: true,
-          // strictActionSerializability: true,
-        }
-      }),
+    StoreModule.forRoot(reducers, storeConfig),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     // StoreDevtoolsModule.instrumentOnlyWithExtension()
     ServiceWorkerModule.register('ngsw-worker.js', {

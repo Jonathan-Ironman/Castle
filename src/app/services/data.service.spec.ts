@@ -2,11 +2,12 @@ import { TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from '../store/reducers';
 import { DataService } from './data.service';
+import { storeConfig } from '../app.module';
 
 describe('DataService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
-      StoreModule.forRoot(reducers)
+      StoreModule.forRoot(reducers, storeConfig)
     ],
   }));
 

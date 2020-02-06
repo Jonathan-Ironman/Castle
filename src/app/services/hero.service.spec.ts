@@ -6,13 +6,16 @@ import { femaleHeroNames, maleHeroNames } from '../misc/hero-names';
 import { MathHelpers } from '../misc/math-helpers';
 import { reducers } from '../store/reducers';
 import { HeroService } from './hero.service';
+import { storeConfig } from '../app.module';
 
 describe('HeroService', () => {
   let service: HeroService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(reducers)]
+      imports: [
+        StoreModule.forRoot(reducers, storeConfig)
+      ]
     });
     service = TestBed.get(HeroService);
   });

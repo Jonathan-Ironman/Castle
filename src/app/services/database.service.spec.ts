@@ -3,11 +3,12 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from '../store/reducers';
 import { DatabaseService } from './database.service';
+import { storeConfig } from '../app.module';
 
 describe('DatabaseService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
-      StoreModule.forRoot(reducers)
+      StoreModule.forRoot(reducers, storeConfig)
     ],
     providers: [
       { provide: AngularFirestore, useValue: {} }

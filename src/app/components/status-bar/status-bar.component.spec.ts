@@ -5,6 +5,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from '../../store/reducers/index';
 import { MenuComponent } from '../menu/menu.component';
 import { MaterialModule } from '../../material/material.module';
+import { storeConfig } from 'src/app/app.module';
 
 describe('StatusBarComponent', () => {
   let component: StatusBarComponent;
@@ -18,7 +19,7 @@ describe('StatusBarComponent', () => {
       ],
       imports: [
         MaterialModule,
-        StoreModule.forRoot(reducers)
+        StoreModule.forRoot(reducers, storeConfig)
       ]
     }).compileComponents();
   }));

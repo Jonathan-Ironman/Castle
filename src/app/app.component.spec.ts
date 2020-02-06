@@ -16,6 +16,7 @@ import { appRoutes } from './routes';
 import { HeroService } from './services/hero.service';
 import { reducers } from './store/reducers';
 import { MissionControlComponent } from './components/mission-control/mission-control.component';
+import { storeConfig } from './app.module';
 
 const HeroServiceStub = {
   createHero: () => { }
@@ -40,7 +41,7 @@ describe('AppComponent', () => {
         MaterialModule,
         RouterModule,
         RouterModule.forRoot(appRoutes),
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot(reducers, storeConfig),
       ],
       providers: [
         { provide: AngularFirestore, useValue: {} },
