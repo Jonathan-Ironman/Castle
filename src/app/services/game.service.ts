@@ -122,6 +122,11 @@ export class GameService {
     this.createReport('Ooh wee', 'Mad adventures did you have');
   }
 
+  newGame() {
+    this.dataService.clearData();
+    window.location.reload();
+  }
+
   gameInit() {
     if (this.init) {
       return;

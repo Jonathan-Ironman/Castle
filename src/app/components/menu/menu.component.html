@@ -3,6 +3,10 @@
 </button>
 
 <mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="newGame()">
+    <mat-icon>refresh</mat-icon>
+    <span>New game</span>
+  </button>
   <button mat-menu-item (click)="addUser()">
     <mat-icon>person_add</mat-icon>
     <span>Add random user</span>
