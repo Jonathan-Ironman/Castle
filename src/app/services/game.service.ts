@@ -74,7 +74,7 @@ export class GameService {
       switch (r.type) {
         case RewardType.gold:
           rewardLog.push(`You gained ${r.amount} gold.`);
-          this.store.dispatch(ResourceActions.addGold(r.amount));
+          this.addGold(r.amount);
           break;
         case RewardType.boost:
           rewardLog.push(`Something good happened`);
