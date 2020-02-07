@@ -5,7 +5,7 @@ import { Intel } from '../models/intel.model';
 
 export const uniqueMissions: Mission[] = [
     {
-        id: 'm1',
+        id: 0,
         title: 'The dead of the gladioles',
         description: 'Fight the evil flowers that lurk in the shadows of big tree',
         rewards: [new RewardGold(100), new RewardInsight()],
@@ -15,7 +15,7 @@ export const uniqueMissions: Mission[] = [
         intel: new Intel(10, 1)
     },
     {
-        id: 'm2',
+        id: 0,
         title: 'Tim the Enchanter',
         description: 'Help Tim burninate the evil rabbit',
         rewards: [new RewardGold(100)],
@@ -29,7 +29,7 @@ export const uniqueMissions: Mission[] = [
         intel: new Intel(10, 1)
     },
     {
-        id: 'm3',
+        id: 0,
         title: 'Death incarnate',
         description: 'Death wants to tango',
         rewards: [new RewardGold(100)],

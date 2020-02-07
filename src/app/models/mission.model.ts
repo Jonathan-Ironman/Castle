@@ -4,12 +4,10 @@ import { Intel } from './intel.model';
 import { Hero } from './hero.model';
 
 export class Mission {
-    id: string;
-    title: string;
-    description: string;
+    id: Readonly<number>;
+    title: Readonly<string>;
+    description: Readonly<string>;
     rewards: Reward[];
     adversity: Adversity;
     intel: Intel;
-    assignments?: Hero[];
-    assignmentType?: 'scout' | 'execute';
 }

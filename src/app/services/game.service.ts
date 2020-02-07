@@ -18,30 +18,51 @@ import { RewardType } from '../models/reward.model';
 import { TextHelpers as TH } from '../misc/text-helper';
 import { DataService } from './data.service';
 import { DataActions } from '../store/actions/data.actions';
+import { GameSelectors } from '../store/selectors/game.selector';
+import { GameActions } from '../store/actions/game.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
+  // tslint:disable: variable-name
+  private _heroId: Readonly<number>;
+  private _missionId: Readonly<number>;
+  private _reportId: Readonly<number>;
+  // tslint:enable: variable-name
   private hiredHeroes: readonly Hero[];
   private gold: Readonly<number>;
+  private tick: Readonly<number>;
   private missionsWithAssignments: readonly Mission[];
   private init = false;
 
+  get nextHeroId() {
+    this.store.dispatch(GameActions.incrementHeroId());
+    return this._heroId;
+  }
+
+  get nextMissionId() {
+    this.store.dispatch(GameActions.incrementMissionId());
+    return this._missionId;
+  }
+
+  get nextReportId() {
+    this.store.dispatch(GameActions.incrementReportId());
+    return this._reportId;
+  }
+
   constructor(
     private store: Store<AppState>,
-    private heroService: HeroService,
     private dataService: DataService
   ) {
-    store.select(HeroSelectors.hiredHeroes).subscribe(
-      heroes => this.hiredHeroes = heroes
-    );
-    store.select(ResourceSelectors.gold).subscribe(
-      gold => this.gold = gold
-    );
+    store.select(HeroSelectors.hiredHeroes).subscribe(heroes => this.hiredHeroes = heroes);
+    store.select(ResourceSelectors.gold).subscribe(gold => this.gold = gold);
     store.select(MissionSelectors.missionsWithAssignments).subscribe(
-      missionsWithAssignments => this.missionsWithAssignments = missionsWithAssignments
-    );
+      missionsWithAssignments => this.missionsWithAssignments = missionsWithAssignments);
+    store.select(GameSelectors.tick).subscribe(tick => this.tick = tick);
+    store.select(GameSelectors.heroId).subscribe(heroId => this._heroId = heroId);
+    store.select(GameSelectors.missionId).subscribe(missionId => this._missionId = missionId);
+    store.select(GameSelectors.reportId).subscribe(reportId => this._reportId = reportId);
   }
 
   addGold(amount: number) {
@@ -60,12 +81,14 @@ export class GameService {
     this.store.dispatch(MissionActions.addActiveMission({ mission }));
   }
 
-  createReport(title: string, text: string) {
-    const id = 1;
-    const tick = 1;
-    const type = ReportType.mission;
-    const report = new Report({ id, title, text, tick, reportType: type });
-
+  createReport(title: string, text: string, type: ReportType) {
+    const report = new Report({
+      id: this.nextReportId,
+      title,
+      text,
+      tick: this.tick,
+      reportType: type
+    });
     this.store.dispatch(ReportActions.addReport({ report }));
   }
 
@@ -104,25 +127,35 @@ export class GameService {
       const rewardLog = this.handleMissionRewards(mission);
       this.createReport('Glorious victory!',
         [`\n${TH.listAnd(heroes.map(h => h.name))} crushed mission ${mission.title}!`,
-        ...rewardLog].join('\n'));
+        ...rewardLog].join('\n'),
+        ReportType.mission
+      );
       this.store.dispatch(MissionActions.removeActiveMission({ mission }));
       return;
     }
 
     if (combat + tactics < (adversity.combat + adversity.tactics) / 2) {
       this.createReport('Massacred!',
-        `${TH.listAnd(heroes.map(h => h.name))} are killed in mission ${mission.title}!`);
+        `${TH.listAnd(heroes.map(h => h.name))} are killed in mission ${mission.title}!`,
+        ReportType.mission
+      );
       // TODO kill em
       return;
     }
 
     this.createReport('Happenings',
-      `${TH.listAnd(heroes.map(h => h.name))} did things in mission ${mission.title}!`);
+      `${TH.listAnd(heroes.map(h => h.name))} did things in mission ${mission.title}!`,
+      ReportType.mission
+    );
   }
 
   handleTick() {
     this.missionsWithAssignments.forEach(this.handleMission.bind(this));
-    this.createReport('Ooh wee', 'Mad adventures did you have');
+    this.createReport('Ooh wee', 'Mad adventures did you have', ReportType.event);
+  }
+
+  createHero(level: number) {
+    return HeroService.generateHero(this.nextHeroId, level);
   }
 
   newGame() {
@@ -143,11 +176,14 @@ export class GameService {
       return;
     }
 
-    this.createReport('Welcome', 'Today you found a castle, you now own a castle.');
-    uniqueMissions.forEach(this.addActiveMission.bind(this));
+    this.createReport('Welcome', 'Today you found a castle, you now own a castle.', ReportType.event);
+
+    uniqueMissions.forEach(m => {
+      this.addActiveMission({ ...m, id: this.nextMissionId });
+    });
 
     for (let i = 0; i < 4; i++) {
-      this.addRecruitableHero(this.heroService.createHero(1));
+      this.addRecruitableHero(this.createHero(1));
     }
 
     this.init = true;

@@ -11,11 +11,9 @@ import { AppState } from '../store/reducers';
   providedIn: 'root'
 })
 export class HeroService {
-  private maleToFemalePercentage = 85;
-  // TODO: remember to store.
-  private idCount = 1;
+  private static maleToFemalePercentage = 85;
 
-  generateHeroGender(): Gender {
+  static generateHeroGender(): Gender {
     if (MathHelpers.chance(this.maleToFemalePercentage)) {
       return Gender.male;
     }
@@ -23,15 +21,14 @@ export class HeroService {
     return Gender.female;
   }
 
-  private generateHeroName(gender: Gender): string {
+  private static generateHeroName(gender: Gender): string {
     const list = gender === Gender.male && maleHeroNames ||
       gender === Gender.female && femaleHeroNames;
     const name = list[MathHelpers.getRandomInt(0, list.length - 1)];
     return name;
   }
 
-  createHero(level: number): Hero {
-    const id = this.idCount++;
+  static generateHero(id: number, level: number): Hero {
     const gender = this.generateHeroGender();
     const name = this.generateHeroName(gender);
     const combat = MathHelpers.getRandomInt(level * 1, level * 25);
@@ -47,6 +44,4 @@ export class HeroService {
       id, name, gender, level, combat, tactics, valor, missionFee, hiringFee,
     });
   }
-
-  constructor(private store: Store<AppState>) { }
 }

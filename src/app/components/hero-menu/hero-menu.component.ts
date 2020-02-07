@@ -96,7 +96,7 @@ export class HeroMenuComponent implements OnInit {
 
     this.mission$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
-        const missionId = params.get('missionId');
+        const missionId = +params.get('missionId');
         return this.store.select(MissionSelectors.missionById(missionId));
       }));
 

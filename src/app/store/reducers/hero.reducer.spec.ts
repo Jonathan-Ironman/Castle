@@ -32,7 +32,7 @@ describe('Hero Reducer', () => {
   });
 
   it('should assign missions to heroes', () => {
-    const missionId = 'm1';
+    const missionId = 1;
     const action = HeroActions.assignMissionToHero({
       hero: fakeHero,
       missionId
@@ -47,7 +47,7 @@ describe('Hero Reducer', () => {
   });
 
   it('should unassign missions from heroes', () => {
-    const hero = { ...fakeHero, assignment: 'm1' };
+    const hero = { ...fakeHero, assignment: 1 };
     const action = HeroActions.unassignMissionFromHero({ hero });
     const state = {
       recruitableHeroes: [],

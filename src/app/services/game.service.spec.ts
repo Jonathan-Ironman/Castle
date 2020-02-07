@@ -11,6 +11,7 @@ import { ResourceActions } from '../store/actions/resource.actions';
 import { AppState, reducers } from '../store/reducers';
 import { fakeHero } from '../testing/fakeHero';
 import { GameService } from './game.service';
+import { GameActions } from '../store/actions/game.actions';
 
 describe('GameService', () => {
   let service: GameService;
@@ -77,19 +78,22 @@ describe('GameService', () => {
     const title = 'title';
     const text = 'text';
     const report = new Report({
-      id: 1,
+      id: 0,
       title,
       text,
       tick: 1,
       reportType: ReportType.mission
     });
-    const action = ReportActions.addReport({ report });
+    const incrementReportIdAction = GameActions.incrementReportId();
+    const addReportAction = ReportActions.addReport({ report });
 
-    service.createReport(title, text);
+    service.createReport(title, text, ReportType.mission);
 
-    expect(dispatchSpy).toHaveBeenCalledTimes(1);
+    expect(dispatchSpy).toHaveBeenCalledTimes(2);
     expect(dispatchSpy.calls.argsFor(0)[0])
-      .toEqual(jasmine.objectContaining(action));
+      .toEqual(jasmine.objectContaining(incrementReportIdAction));
+    expect(dispatchSpy.calls.argsFor(1)[0])
+      .toEqual(jasmine.objectContaining(addReportAction));
   });
 
   it('should handle mission gold rewards', () => {

@@ -9,52 +9,45 @@ import { HeroService } from './hero.service';
 import { storeConfig } from '../app.module';
 
 describe('HeroService', () => {
-  let service: HeroService;
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(reducers, storeConfig)
       ]
     });
-    service = TestBed.get(HeroService);
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
   });
 
   it('be able to create heroes with all properties defined', () => {
     spyOn(MathHelpers, 'chance').and.returnValue(true);
     spyOn(MathHelpers, 'getRandomInt').and.returnValue(1);
-    const hero = service.createHero(1);
+    const hero = HeroService.generateHero(1, 1);
     expect(Object.values(hero)).not.toContain(null);
     expect(Object.values(hero)).not.toContain(undefined);
   });
 
   it('be able to create male heroes', () => {
     spyOn(MathHelpers, 'chance').and.returnValue(true);
-    const hero = service.createHero(1);
+    const hero = HeroService.generateHero(1, 1);
     expect(hero.gender).toBe(Gender.male);
   });
 
   it('be able to create male heroes with a male name', () => {
     spyOn(MathHelpers, 'chance').and.returnValue(true);
     spyOn(MathHelpers, 'getRandomInt').and.returnValue(0);
-    const hero = service.createHero(1);
+    const hero = HeroService.generateHero(1, 1);
     expect(maleHeroNames).toContain(hero.name);
   });
 
   it('be able to create female heroes', () => {
     spyOn(MathHelpers, 'chance').and.returnValue(false);
-    const hero = service.createHero(1);
+    const hero = HeroService.generateHero(1, 1);
     expect(hero.gender).toBe(Gender.female);
   });
 
   it('be able to create female heroes with a female name', () => {
     spyOn(MathHelpers, 'chance').and.returnValue(false);
     spyOn(MathHelpers, 'getRandomInt').and.returnValue(0);
-    const hero = service.createHero(1);
+    const hero = HeroService.generateHero(1, 1);
     expect(femaleHeroNames).toContain(hero.name);
   });
 });
