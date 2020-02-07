@@ -15,6 +15,16 @@ describe('Hero Reducer', () => {
     expect(result.myHeroes).toContain(fakeHero);
   });
 
+  it('should remove hired heroes', () => {
+    const action = HeroActions.removeHiredHero({ hero: fakeHero });
+    const state = {
+      recruitableHeroes: [],
+      myHeroes: [fakeHero]
+    };
+    const result = heroReducer(state, action);
+    expect(result.myHeroes).not.toContain(fakeHero);
+  });
+
   it('should add recruitable heroes', () => {
     const action = HeroActions.addRecruitableHero({ hero: fakeHero });
     const result = heroReducer(initialState, action);

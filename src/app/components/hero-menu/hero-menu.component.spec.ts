@@ -113,7 +113,7 @@ describe('HeroMenuComponent', () => {
     // Arrange
     const hireAction = HeroActions.hireHero({ hero: fakeHero });
     const removeAction = HeroActions.removeRecruitableHero({ hero: fakeHero });
-    const goldAction = ResourceActions.substractGold(fakeHero.hiringFee);
+    const goldAction = ResourceActions.subtractGold(fakeHero.hiringFee);
 
     spyOn(component, 'canHireHero').and.returnValue(true);
     const spy = spyOn(store, 'dispatch');

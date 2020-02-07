@@ -15,7 +15,7 @@ describe('Resource Reducer', () => {
   });
 
   it('should subtract gold', () => {
-    const action = ResourceActions.substractGold(10);
+    const action = ResourceActions.subtractGold(10);
     const result = resourceReducer(initialState, action);
     expect(result.gold).toEqual(initialState.gold - 10);
   });

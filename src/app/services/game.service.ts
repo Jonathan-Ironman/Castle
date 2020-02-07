@@ -69,8 +69,24 @@ export class GameService {
     this.store.dispatch(ResourceActions.addGold(amount));
   }
 
+  subtractGold(amount: number) {
+    this.store.dispatch(ResourceActions.subtractGold(amount));
+  }
+
+  createHero(level: number) {
+    return HeroService.generateHero(this.nextHeroId, level);
+  }
+
   hireHero(hero: Hero) {
     this.store.dispatch(HeroActions.hireHero({ hero }));
+  }
+
+  removeHiredHero(hero: Hero) {
+    this.store.dispatch(HeroActions.removeHiredHero({ hero }));
+  }
+
+  unassignMissionFromHero(hero: Hero) {
+    this.store.dispatch(HeroActions.unassignMissionFromHero({ hero }));
   }
 
   addRecruitableHero(hero: Hero) {
@@ -121,7 +137,11 @@ export class GameService {
     const tactics = heroes.reduce((accumulator, hero) => accumulator + hero.tactics, 0);
     const adversity = mission.adversity;
 
-    // TODO unassign missions somewhere
+    // Subtract fees and unassign missions
+    heroes.forEach(h => {
+      this.unassignMissionFromHero(h);
+      this.subtractGold(h.missionFee);
+    });
 
     if ((combat + tactics) / 2 > adversity.combat + adversity.tactics) {
       const rewardLog = this.handleMissionRewards(mission);
@@ -131,31 +151,25 @@ export class GameService {
         ReportType.mission
       );
       this.store.dispatch(MissionActions.removeActiveMission({ mission }));
-      return;
-    }
-
-    if (combat + tactics < (adversity.combat + adversity.tactics) / 2) {
+    } else if (combat + tactics < (adversity.combat + adversity.tactics) / 2) {
       this.createReport('Massacred!',
-        `${TH.listAnd(heroes.map(h => h.name))} are killed in mission ${mission.title}!`,
+        `${TH.listAnd(heroes.map(h => h.name))} ${TH.singularPlural(heroes, 'is', 'are')} killed in mission ${mission.title}!`,
         ReportType.mission
       );
-      // TODO kill em
-      return;
+      // Kill them
+      heroes.forEach(this.removeHiredHero.bind(this));
+    } else {
+      this.createReport('Happenings',
+        `${TH.listAnd(heroes.map(h => h.name))} did things in mission ${mission.title}!`,
+        ReportType.mission
+      );
     }
-
-    this.createReport('Happenings',
-      `${TH.listAnd(heroes.map(h => h.name))} did things in mission ${mission.title}!`,
-      ReportType.mission
-    );
   }
 
   handleTick() {
     this.missionsWithAssignments.forEach(this.handleMission.bind(this));
     this.createReport('Ooh wee', 'Mad adventures did you have', ReportType.event);
-  }
-
-  createHero(level: number) {
-    return HeroService.generateHero(this.nextHeroId, level);
+    this.store.dispatch(GameActions.addTick());
   }
 
   newGame() {

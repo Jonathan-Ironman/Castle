@@ -27,6 +27,10 @@ const reducer = createReducer(
     const recruitableHeroes = state.recruitableHeroes.filter(x => x.id !== payload.hero.id);
     return { ...state, recruitableHeroes };
   }),
+  on(HeroActions.removeHiredHero, (state, payload) => {
+    const myHeroes = state.myHeroes.filter(x => x.id !== payload.hero.id);
+    return { ...state, myHeroes };
+  }),
   on(HeroActions.assignMissionToHero, (state, payload) => {
     const updatedHero = { ...payload.hero, assignment: payload.missionId };
     const heroes = Array.from(state.myHeroes)

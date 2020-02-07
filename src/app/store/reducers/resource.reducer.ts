@@ -15,7 +15,7 @@ const reducer = createReducer(
   initialState,
   on(ResourceActions.addGold,
     (state, { payload }) => ({ ...state, gold: state.gold + payload })),
-  on(ResourceActions.substractGold,
+  on(ResourceActions.subtractGold,
     (state, { payload }) => ({ ...state, gold: state.gold - payload }))
 );
 

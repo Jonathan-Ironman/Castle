@@ -56,8 +56,9 @@ export class HeroMenuComponent implements OnInit {
     }
 
     this.store.dispatch(HeroActions.hireHero({ hero }));
+    // TODO effects?
     this.store.dispatch(HeroActions.removeRecruitableHero({ hero }));
-    this.store.dispatch(ResourceActions.substractGold(hero.hiringFee));
+    this.store.dispatch(ResourceActions.subtractGold(hero.hiringFee));
   }
 
   ngOnInit() {
