@@ -120,6 +120,9 @@ describe('GameService', () => {
     // TODO complete
     // const handleMissionSpy = spyOn(service, 'handleMission');
     const createReportSpy = spyOn(service, 'createReport');
+    spyOn(service, 'preTickEvents').and.returnValue(false);
+    spyOn(service, 'postTickEvents');
+
     // service.missionsWithAssignments
 
     service.handleTick();

@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-
 import { Gender } from '../misc/gender.enum';
 import { femaleHeroNames, maleHeroNames } from '../misc/hero-names';
 import { MathHelpers } from '../misc/math-helpers';
 import { Hero } from '../models/hero.model';
-import { AppState } from '../store/reducers';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +23,20 @@ export class HeroService {
       gender === Gender.female && femaleHeroNames;
     const name = list[MathHelpers.getRandomInt(0, list.length - 1)];
     return name;
+  }
+
+  static getHeroLevelForReputation(playerReputation: number) {
+    let min = playerReputation / 10;
+    let max = playerReputation / 4;
+    if (MathHelpers.chance(10)) {
+      min = playerReputation / 5;
+      max = playerReputation / 3;
+    } else if (MathHelpers.chance(10)) {
+      min = playerReputation / 20;
+      max = playerReputation / 10;
+    }
+
+    return Math.max(Math.floor(MathHelpers.getRandomInt(min, max)), 1);
   }
 
   static generateHero(id: number, level: number): Hero {

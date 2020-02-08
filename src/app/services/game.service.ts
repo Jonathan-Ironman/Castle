@@ -20,6 +20,7 @@ import { DataService } from './data.service';
 import { DataActions } from '../store/actions/data.actions';
 import { GameSelectors } from '../store/selectors/game.selector';
 import { GameActions } from '../store/actions/game.actions';
+import { MathHelpers } from '../misc/math-helpers';
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +32,10 @@ export class GameService {
   private _reportId: Readonly<number>;
   // tslint:enable: variable-name
   private hiredHeroes: readonly Hero[];
+  private recruitableHeroes: readonly Hero[];
   private gold: Readonly<number>;
   private tick: Readonly<number>;
+  private playerReputation: Readonly<number>;
   private missionsWithAssignments: readonly Mission[];
   private init = false;
 
@@ -56,6 +59,7 @@ export class GameService {
     private dataService: DataService
   ) {
     store.select(HeroSelectors.hiredHeroes).subscribe(heroes => this.hiredHeroes = heroes);
+    store.select(HeroSelectors.recruitableHeroes).subscribe(heroes => this.recruitableHeroes = heroes);
     store.select(ResourceSelectors.gold).subscribe(gold => this.gold = gold);
     store.select(MissionSelectors.missionsWithAssignments).subscribe(
       missionsWithAssignments => this.missionsWithAssignments = missionsWithAssignments);
@@ -63,6 +67,7 @@ export class GameService {
     store.select(GameSelectors.heroId).subscribe(heroId => this._heroId = heroId);
     store.select(GameSelectors.missionId).subscribe(missionId => this._missionId = missionId);
     store.select(GameSelectors.reportId).subscribe(reportId => this._reportId = reportId);
+    store.select(GameSelectors.playerReputation).subscribe(playerReputation => this.playerReputation = playerReputation);
   }
 
   addGold(amount: number) {
@@ -73,6 +78,14 @@ export class GameService {
     this.store.dispatch(ResourceActions.subtractGold(amount));
   }
 
+  addReputation(amount: number) {
+    this.store.dispatch(GameActions.addReputation(amount));
+  }
+
+  subtractReputation(amount: number) {
+    this.store.dispatch(GameActions.subtractReputation(amount));
+  }
+
   createHero(level: number) {
     return HeroService.generateHero(this.nextHeroId, level);
   }
@@ -81,7 +94,7 @@ export class GameService {
     this.store.dispatch(HeroActions.hireHero({ hero }));
     this.store.dispatch(HeroActions.removeRecruitableHero({ hero }));
     this.store.dispatch(ResourceActions.subtractGold(hero.hiringFee));
-    this.createReport('New hero', `Hired ${hero.name} for ${hero.hiringFee} gold`, ReportType.event);
+    this.createReport('New hero', `Hired ${hero.name} for ${hero.hiringFee} gold`, ReportType.recruitment);
   }
 
   removeHiredHero(hero: Hero) {
@@ -125,6 +138,11 @@ export class GameService {
         case RewardType.insight:
           rewardLog.push(`You've learned something interesting`);
           break;
+        case RewardType.reputation:
+          const adjective = r.amount > 5 && ' significantly' || '';
+          rewardLog.push(`Your reputation increased` + adjective);
+          this.addReputation(r.amount);
+          break;
         default:
           throw new Error('Unknown reward type');
       }
@@ -162,8 +180,9 @@ export class GameService {
       );
       // Kill them
       heroes.forEach(h => {
+        this.subtractReputation(h.level);
+        this.createReport('K.I.A.', `${h.name} died`, ReportType.event);
         this.removeHiredHero(h);
-        this.createReport('K.I.A.', `${h.name} died.`, ReportType.event);
       });
     } else {
       this.createReport('Happenings',
@@ -173,11 +192,40 @@ export class GameService {
     }
   }
 
+  preTickEvents() {
+    const abort = false;
+    return abort;
+  }
+
+  postTickEvents() {
+    let heroLevel = 0;
+    if (this.hiredHeroes.length <= 4 && this.recruitableHeroes.length <= 3 && MathHelpers.chance(10)) {
+      heroLevel = HeroService.getHeroLevelForReputation(this.playerReputation);
+    } else if (this.hiredHeroes.length <= 2 && this.recruitableHeroes.length <= 2 && MathHelpers.chance(50)) {
+      heroLevel = HeroService.getHeroLevelForReputation(this.playerReputation);
+    } else if (this.hiredHeroes.length === 0 && this.recruitableHeroes.length === 0) {
+      heroLevel = HeroService.getHeroLevelForReputation(this.playerReputation * 0.8);
+    }
+
+    if (heroLevel > 0) {
+      const hero = this.createHero(heroLevel);
+      this.addRecruitableHero(hero);
+      this.createReport('New recruit', `${hero.name} is available for hire`, ReportType.recruitment);
+    }
+  }
+
   handleTick() {
+    const abort = this.preTickEvents();
+    if (abort) {
+      return;
+    }
+
     const prevGold = this.gold;
     this.missionsWithAssignments.forEach(this.handleMission.bind(this));
     this.createReport(`Tick ${this.tick} summary`, `Gold: ${this.gold} (was ${prevGold})`, ReportType.event);
     this.store.dispatch(GameActions.tick());
+
+    this.postTickEvents();
   }
 
   newGame() {
@@ -198,7 +246,7 @@ export class GameService {
       return;
     }
 
-    this.createReport('Welcome', 'Today you found a castle, you now own a castle.', ReportType.event);
+    this.createReport('Welcome', 'Today you found a castle, you now own a castle', ReportType.event);
 
     uniqueMissions.forEach(m => {
       this.addActiveMission({ ...m, id: this.nextMissionId });

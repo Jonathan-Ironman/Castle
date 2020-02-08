@@ -1,14 +1,15 @@
-export type Reward = RewardGold | RewardLoot | RewardInsight;
+export type Reward = RewardGold | RewardLoot | RewardInsight | RewardReputation;
 
 export enum RewardType {
     'gold',
     'boost',
-    'insight'
+    'insight',
+    'reputation',
 }
 
 export class RewardGold {
-    readonly amount: number;
     readonly type = RewardType.gold;
+    readonly amount: number;
 
     constructor(gold: number) {
         this.amount = gold;
@@ -23,4 +24,13 @@ export class RewardLoot {
 export class RewardInsight {
     readonly type = RewardType.insight;
     readonly description = 'I am Insight';
+}
+
+export class RewardReputation {
+    readonly type = RewardType.reputation;
+    readonly amount: number;
+
+    constructor(reputation: number) {
+        this.amount = reputation;
+    }
 }
