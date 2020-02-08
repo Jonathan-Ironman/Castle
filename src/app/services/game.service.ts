@@ -177,7 +177,7 @@ export class GameService {
     const prevGold = this.gold;
     this.missionsWithAssignments.forEach(this.handleMission.bind(this));
     this.createReport(`Tick ${this.tick} summary`, `Gold: ${this.gold} (was ${prevGold})`, ReportType.event);
-    this.store.dispatch(GameActions.addTick());
+    this.store.dispatch(GameActions.tick());
   }
 
   newGame() {

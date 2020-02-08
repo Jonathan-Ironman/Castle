@@ -9,7 +9,7 @@ describe('Game Reducer', () => {
   });
 
   it('should return tick + 1', () => {
-    const action = GameActions.addTick();
+    const action = GameActions.tick();
     const result = gameReducer(initialState, action);
     expect(result.tick).toBe(initialState.tick + 1);
   });
@@ -30,5 +30,17 @@ describe('Game Reducer', () => {
     const action = GameActions.incrementReportId();
     const result = gameReducer(initialState, action);
     expect(result.reportId).toBe(initialState.reportId + 1);
+  });
+
+  it('should add reputation', () => {
+    const action = GameActions.addReputation(1);
+    const result = gameReducer(initialState, action);
+    expect(result.player.reputation).toBe(initialState.player.reputation + 1);
+  });
+
+  it('should subtract reputation', () => {
+    const action = GameActions.subtractReputation(1);
+    const result = gameReducer(initialState, action);
+    expect(result.player.reputation).toBe(initialState.player.reputation - 1);
   });
 });
