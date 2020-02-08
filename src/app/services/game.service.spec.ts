@@ -120,8 +120,8 @@ describe('GameService', () => {
     // TODO complete
     // const handleMissionSpy = spyOn(service, 'handleMission');
     const createReportSpy = spyOn(service, 'createReport');
-    spyOn(service, 'preTickEvents').and.returnValue(false);
-    spyOn(service, 'postTickEvents');
+    const preTickSpy = spyOn(service, 'preTickEvents').and.returnValue(false);
+    const postTickSpy = spyOn(service, 'postTickEvents');
 
     // service.missionsWithAssignments
 
@@ -129,6 +129,8 @@ describe('GameService', () => {
 
     // expect(handleMissionSpy).toHaveBeenCalledTimes(1);
     expect(createReportSpy).toHaveBeenCalledTimes(1);
+    expect(preTickSpy).toHaveBeenCalledTimes(1);
+    expect(postTickSpy).toHaveBeenCalledTimes(1);
   });
 
   // it('should handle game init', () => {
