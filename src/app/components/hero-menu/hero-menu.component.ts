@@ -1,15 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Data } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Data, ParamMap } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { Hero } from 'src/app/models/hero.model';
-import { HeroSelectors } from 'src/app/store/selectors/hero.selector';
-import { AppState, selectResourceState } from '../../store/reducers';
-import { HeroActions } from 'src/app/store/actions/hero.actions';
-import { Observable, forkJoin } from 'rxjs';
 import { Mission } from 'src/app/models/mission.model';
-import { switchMap, map, tap } from 'rxjs/operators';
+import { HeroActions } from 'src/app/store/actions/hero.actions';
+import { HeroSelectors } from 'src/app/store/selectors/hero.selector';
 import { MissionSelectors } from 'src/app/store/selectors/mission.selector';
-import { ResourceActions } from 'src/app/store/actions/resource.actions';
+import { GameService } from '../../services/game.service';
+import { AppState, selectResourceState } from '../../store/reducers';
+import { Store } from '@ngrx/store';
 
 export enum HeroScreenType {
   main = 'main',
@@ -33,7 +33,11 @@ export class HeroMenuComponent implements OnInit {
   recruitableHeroes$: Observable<readonly Hero[]>;
   routeData$: Observable<Data>;
 
-  constructor(private store: Store<AppState>, private route: ActivatedRoute) { }
+  constructor(
+    private store: Store<AppState>,
+    private route: ActivatedRoute,
+    private gameService: GameService
+  ) { }
 
   assignHeroToMission(hero: Hero) {
     if (!this.mission) {
@@ -55,10 +59,7 @@ export class HeroMenuComponent implements OnInit {
       return;
     }
 
-    this.store.dispatch(HeroActions.hireHero({ hero }));
-    // TODO effects?
-    this.store.dispatch(HeroActions.removeRecruitableHero({ hero }));
-    this.store.dispatch(ResourceActions.subtractGold(hero.hiringFee));
+    this.gameService.hireHero(hero);
   }
 
   ngOnInit() {

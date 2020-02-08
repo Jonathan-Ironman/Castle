@@ -44,13 +44,18 @@ describe('GameService', () => {
   });
 
   it('should hire heroes', () => {
-    const action = HeroActions.hireHero({ hero: fakeHero });
+    const hireHeroAction = HeroActions.hireHero({ hero: fakeHero });
+    const removeHeroAction = HeroActions.removeRecruitableHero({ hero: fakeHero });
+    const incrementReportIdAction = GameActions.incrementReportId();
+    const goldAction = ResourceActions.subtractGold(fakeHero.hiringFee);
 
     service.hireHero(fakeHero);
 
-    expect(dispatchSpy).toHaveBeenCalledTimes(1);
-    expect(dispatchSpy.calls.argsFor(0)[0])
-      .toEqual(jasmine.objectContaining(action));
+    expect(dispatchSpy).toHaveBeenCalledTimes(5);
+    expect(dispatchSpy).toHaveBeenCalledWith(hireHeroAction);
+    expect(dispatchSpy).toHaveBeenCalledWith(removeHeroAction);
+    expect(dispatchSpy).toHaveBeenCalledWith(goldAction);
+    expect(dispatchSpy).toHaveBeenCalledWith(incrementReportIdAction);
   });
 
   it('should add recruitable heroes', () => {

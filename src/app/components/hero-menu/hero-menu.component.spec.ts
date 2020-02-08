@@ -6,18 +6,19 @@ import { storeConfig } from 'src/app/app.module';
 import { uniqueMissions } from 'src/app/misc/missions';
 import { appRoutes } from 'src/app/routes';
 import { HeroActions } from 'src/app/store/actions/hero.actions';
-import { ResourceActions } from 'src/app/store/actions/resource.actions';
 import { reducers } from 'src/app/store/reducers';
 import { MaterialModule } from '../../material/material.module';
 import { AppState } from '../../store/reducers';
 import { fakeHero } from '../../testing/fakeHero';
 import { ActionButtonComponent } from '../action-button/action-button.component';
 import { HeroMenuComponent } from './hero-menu.component';
+import { GameService } from '../../services/game.service';
 
 describe('HeroMenuComponent', () => {
   let component: HeroMenuComponent;
   let fixture: ComponentFixture<HeroMenuComponent>;
   let store: Store<AppState>;
+  let gameService: GameService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -40,6 +41,7 @@ describe('HeroMenuComponent', () => {
     fixture = TestBed.createComponent(HeroMenuComponent);
     component = fixture.componentInstance;
     store = TestBed.get<Store<AppState>>(Store);
+    gameService = TestBed.get<GameService>(GameService);
     fixture.detectChanges();
   });
 
@@ -111,21 +113,15 @@ describe('HeroMenuComponent', () => {
 
   it('should dispatch recruit actions', () => {
     // Arrange
-    const hireAction = HeroActions.hireHero({ hero: fakeHero });
-    const removeAction = HeroActions.removeRecruitableHero({ hero: fakeHero });
-    const goldAction = ResourceActions.subtractGold(fakeHero.hiringFee);
-
     spyOn(component, 'canHireHero').and.returnValue(true);
-    const spy = spyOn(store, 'dispatch');
+    const spy = spyOn(gameService, 'hireHero');
 
     // Act
     component.recruit(fakeHero);
 
     // Assert
-    expect(spy).toHaveBeenCalledWith(hireAction);
-    expect(spy).toHaveBeenCalledWith(removeAction);
-    expect(spy).toHaveBeenCalledWith(goldAction);
-    expect(spy).toHaveBeenCalledTimes(3);
+    expect(spy).toHaveBeenCalledWith(fakeHero);
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 
   it('should check if hero can be hired', () => {

@@ -79,6 +79,9 @@ export class GameService {
 
   hireHero(hero: Hero) {
     this.store.dispatch(HeroActions.hireHero({ hero }));
+    this.store.dispatch(HeroActions.removeRecruitableHero({ hero }));
+    this.store.dispatch(ResourceActions.subtractGold(hero.hiringFee));
+    this.createReport('New hero', `Hired ${hero.name} for ${hero.hiringFee} gold`, ReportType.event);
   }
 
   removeHiredHero(hero: Hero) {
@@ -150,6 +153,7 @@ export class GameService {
         ...rewardLog].join('\n'),
         ReportType.mission
       );
+      // Mission complete
       this.store.dispatch(MissionActions.removeActiveMission({ mission }));
     } else if (combat + tactics < (adversity.combat + adversity.tactics) / 2) {
       this.createReport('Massacred!',
@@ -157,7 +161,10 @@ export class GameService {
         ReportType.mission
       );
       // Kill them
-      heroes.forEach(this.removeHiredHero.bind(this));
+      heroes.forEach(h => {
+        this.removeHiredHero(h);
+        this.createReport('K.I.A.', `${h.name} died.`, ReportType.event);
+      });
     } else {
       this.createReport('Happenings',
         `${TH.listAnd(heroes.map(h => h.name))} did things in mission ${mission.title}!`,
@@ -167,8 +174,9 @@ export class GameService {
   }
 
   handleTick() {
+    const prevGold = this.gold;
     this.missionsWithAssignments.forEach(this.handleMission.bind(this));
-    this.createReport('Ooh wee', 'Mad adventures did you have', ReportType.event);
+    this.createReport(`Tick ${this.tick} summary`, `Gold: ${this.gold} (was ${prevGold})`, ReportType.event);
     this.store.dispatch(GameActions.addTick());
   }
 
