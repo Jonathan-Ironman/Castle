@@ -14,9 +14,9 @@ export const initialState: ResourceState = {
 const reducer = createReducer(
   initialState,
   on(ResourceActions.addGold,
-    (state, { payload }) => ({ ...state, gold: state.gold + payload })),
+    (state, { amount }) => ({ ...state, gold: state.gold + amount })),
   on(ResourceActions.subtractGold,
-    (state, { payload }) => ({ ...state, gold: state.gold - payload }))
+    (state, { amount }) => ({ ...state, gold: state.gold - amount }))
 );
 
 export function resourceReducer(state: Readonly<ResourceState> | undefined, action: Action) {
