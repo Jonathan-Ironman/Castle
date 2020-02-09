@@ -32,15 +32,21 @@ describe('Game Reducer', () => {
     expect(result.reportId).toBe(initialState.reportId + 1);
   });
 
+  it('should return heroDeaths + 1', () => {
+    const action = GameActions.incrementHeroDeathCounter();
+    const result = gameReducer(initialState, action);
+    expect(result.heroDeaths).toBe(initialState.heroDeaths + 1);
+  });
+
   it('should add reputation', () => {
     const action = GameActions.addReputation(1);
     const result = gameReducer(initialState, action);
-    expect(result.player.reputation).toBe(initialState.player.reputation + 1);
+    expect(result.playerReputation).toBe(initialState.playerReputation + 1);
   });
 
   it('should subtract reputation', () => {
     const action = GameActions.subtractReputation(1);
     const result = gameReducer(initialState, action);
-    expect(result.player.reputation).toBe(initialState.player.reputation - 1);
+    expect(result.playerReputation).toBe(initialState.playerReputation - 1);
   });
 });

@@ -36,6 +36,7 @@ export class GameService {
   private gold: Readonly<number>;
   private tick: Readonly<number>;
   private playerReputation: Readonly<number>;
+  private heroDeaths: Readonly<number>;
   private missionsWithAssignments: readonly Mission[];
   private init = false;
 
@@ -68,6 +69,7 @@ export class GameService {
     store.select(GameSelectors.missionId).subscribe(missionId => this._missionId = missionId);
     store.select(GameSelectors.reportId).subscribe(reportId => this._reportId = reportId);
     store.select(GameSelectors.playerReputation).subscribe(playerReputation => this.playerReputation = playerReputation);
+    store.select(GameSelectors.heroDeaths).subscribe(heroDeaths => this.heroDeaths = heroDeaths);
   }
 
   addGold(amount: number) {
@@ -84,6 +86,10 @@ export class GameService {
 
   subtractReputation(amount: number) {
     this.store.dispatch(GameActions.subtractReputation(amount));
+  }
+
+  incrementHeroDeathCounter() {
+    this.store.dispatch(GameActions.incrementHeroDeathCounter());
   }
 
   createHero(level: number) {
@@ -180,6 +186,7 @@ export class GameService {
       );
       // Kill them
       heroes.forEach(h => {
+        this.incrementHeroDeathCounter();
         this.subtractReputation(h.level);
         this.createReport('K.I.A.', `${h.name} died`, ReportType.event);
         this.removeHiredHero(h);
@@ -198,6 +205,7 @@ export class GameService {
   }
 
   postTickEvents() {
+    // New recruits
     let heroLevel = 0;
     if (this.hiredHeroes.length <= 4 && this.recruitableHeroes.length <= 3 && MathHelpers.chance(10)) {
       heroLevel = HeroService.getHeroLevelForReputation(this.playerReputation);
@@ -212,6 +220,12 @@ export class GameService {
       this.addRecruitableHero(hero);
       this.createReport('New recruit', `${hero.name} is available for hire`, ReportType.recruitment);
     }
+
+    // Game over?
+    if (this.hiredHeroes.length === 0 &&
+      this.gold < Math.min.apply(null, this.recruitableHeroes.map(h => h.hiringFee))) {
+      this.createReport('Game over', 'You can no longer afford new heroes', ReportType.event);
+    }
   }
 
   handleTick() {
@@ -221,6 +235,18 @@ export class GameService {
     }
 
     const prevGold = this.gold;
+
+    const homeCosts = Math.floor(
+      this.hiredHeroes
+        .filter(h => !h.assignment)
+        .reduce((accumulator, hero) => accumulator + hero.missionFee / 2, 0)
+    );
+
+    if (homeCosts > 0) {
+      this.createReport(`Upkeep`, `Home team cost ${homeCosts}`, ReportType.event);
+      this.subtractGold(homeCosts);
+    }
+
     this.missionsWithAssignments.forEach(this.handleMission.bind(this));
     this.createReport(`Tick ${this.tick} summary`, `Gold: ${this.gold} (was ${prevGold})`, ReportType.event);
     this.store.dispatch(GameActions.tick());
@@ -253,7 +279,7 @@ export class GameService {
     });
 
     for (let i = 0; i < 4; i++) {
-      this.addRecruitableHero(this.createHero(1));
+      this.addRecruitableHero(this.createHero(HeroService.getHeroLevelForReputation(this.playerReputation)));
     }
 
     this.init = true;

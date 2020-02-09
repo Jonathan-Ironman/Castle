@@ -6,5 +6,6 @@ export const GameSelectors = {
     heroId: createSelector(selectGameState, state => state.heroId),
     missionId: createSelector(selectGameState, state => state.missionId),
     reportId: createSelector(selectGameState, state => state.reportId),
-    playerReputation: createSelector(selectGameState, state => state.player.reputation),
+    playerReputation: createSelector(selectGameState, state => state.playerReputation),
+    heroDeaths: createSelector(selectGameState, state => state.heroDeaths),
 };
