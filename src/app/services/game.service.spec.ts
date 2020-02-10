@@ -128,7 +128,7 @@ describe('GameService', () => {
     service.handleTick();
 
     // expect(handleMissionSpy).toHaveBeenCalledTimes(1);
-    expect(createReportSpy).toHaveBeenCalledTimes(1);
+    expect(createReportSpy).toHaveBeenCalledTimes(2);
     expect(preTickSpy).toHaveBeenCalledTimes(1);
     expect(postTickSpy).toHaveBeenCalledTimes(1);
   });
