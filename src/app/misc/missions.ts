@@ -3,6 +3,15 @@ import { Adversity } from '../models/adversity.model';
 import { RewardGold, RewardInsight, RewardReputation } from '../models/reward.model';
 import { Intel } from '../models/intel.model';
 
+export const genericStories = [
+    { title: 'Local bandits', description: 'Help the locals by clearing out bandits in the area', },
+    { title: 'Wolf pack', description: 'Local merchants report getting attacked by wolfs on the road', },
+    { title: 'Goblin cave', description: 'A cave with goblins has been sighted in the area', },
+    { title: 'Angry bear', description: 'An angry bear has been attacking villagers', },
+    { title: 'Giant spider', description: 'An unusual large spider has been sighted scaring travelers', },
+    { title: 'Wild boars', description: 'A group of wild boars is terrorizing the local farmers', },
+];
+
 export const uniqueMissions: Mission[] = [
     {
         id: 0,
@@ -23,7 +32,6 @@ export const uniqueMissions: Mission[] = [
             combat: 40,
             tactics: 40,
             fear: 100,
-            cunning: 10,
             paranormal: true
         }),
         intel: new Intel(10, 1)
@@ -37,7 +45,6 @@ export const uniqueMissions: Mission[] = [
             combat: 1000,
             tactics: 1000,
             fear: 1000,
-            cunning: 1000,
             paranormal: true
         }),
         intel: new Intel(1000, 1)

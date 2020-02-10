@@ -21,6 +21,8 @@ import { DataActions } from '../store/actions/data.actions';
 import { GameSelectors } from '../store/selectors/game.selector';
 import { GameActions } from '../store/actions/game.actions';
 import { MathHelpers } from '../misc/math-helpers';
+import { MissionHelper } from '../misc/mission-helper';
+import { TeamStats } from '../models/team-stats.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,11 +35,13 @@ export class GameService {
   // tslint:enable: variable-name
   private hiredHeroes: readonly Hero[];
   private recruitableHeroes: readonly Hero[];
+  private teamStats: TeamStats;
   private gold: Readonly<number>;
   private tick: Readonly<number>;
   private playerReputation: Readonly<number>;
   private heroDeaths: Readonly<number>;
   private missionsWithAssignments: readonly Mission[];
+  private activeMissions: readonly Mission[];
   private init = false;
 
   get nextHeroId() {
@@ -64,12 +68,14 @@ export class GameService {
     store.select(ResourceSelectors.gold).subscribe(gold => this.gold = gold);
     store.select(MissionSelectors.missionsWithAssignments).subscribe(
       missionsWithAssignments => this.missionsWithAssignments = missionsWithAssignments);
+    store.select(MissionSelectors.activeMissions).subscribe(activeMissions => this.activeMissions = activeMissions);
     store.select(GameSelectors.tick).subscribe(tick => this.tick = tick);
     store.select(GameSelectors.heroId).subscribe(heroId => this._heroId = heroId);
     store.select(GameSelectors.missionId).subscribe(missionId => this._missionId = missionId);
     store.select(GameSelectors.reportId).subscribe(reportId => this._reportId = reportId);
     store.select(GameSelectors.playerReputation).subscribe(playerReputation => this.playerReputation = playerReputation);
     store.select(GameSelectors.heroDeaths).subscribe(heroDeaths => this.heroDeaths = heroDeaths);
+    store.select(HeroSelectors.teamStats).subscribe(teamStats => this.teamStats = teamStats);
   }
 
   addGold(amount: number) {
@@ -113,6 +119,10 @@ export class GameService {
 
   addRecruitableHero(hero: Hero) {
     this.store.dispatch(HeroActions.addRecruitableHero({ hero }));
+  }
+
+  createMission() {
+    return MissionHelper.generateMission(this.nextMissionId, this.teamStats, this.playerReputation);
   }
 
   addActiveMission(mission: Mission) {
@@ -226,6 +236,29 @@ export class GameService {
       this.gold < Math.min.apply(null, this.recruitableHeroes.map(h => h.hiringFee))) {
       this.createReport('Game over', 'You can no longer afford new heroes', ReportType.event);
     }
+
+    // New missions
+    const missions = [];
+    if (this.activeMissions.length === 0) {
+      missions.push(this.createMission());
+      this.addActiveMission(missions[missions.length - 1]);
+    }
+
+    if (this.activeMissions.length <= 2 && MathHelpers.chance(40)) {
+      missions.push(this.createMission());
+      this.addActiveMission(missions[missions.length - 1]);
+    } else if (this.activeMissions.length <= 3 && MathHelpers.chance(20)) {
+      missions.push(this.createMission());
+      this.addActiveMission(missions[missions.length - 1]);
+    } else if (this.activeMissions.length <= 4 && MathHelpers.chance(10)) {
+      missions.push(this.createMission());
+      this.addActiveMission(missions[missions.length - 1]);
+    }
+
+    if (missions.length) {
+      this.createReport(`New mission${TH.singularPlural(missions, '', 's')} available`,
+        'Time to move on', ReportType.event);
+    }
   }
 
   handleTick() {
@@ -274,9 +307,13 @@ export class GameService {
 
     this.createReport('Welcome', 'Today you found a castle, you now own a castle', ReportType.event);
 
-    uniqueMissions.forEach(m => {
-      this.addActiveMission({ ...m, id: this.nextMissionId });
-    });
+    // uniqueMissions.forEach(m => {
+    //   this.addActiveMission({ ...m, id: this.nextMissionId });
+    // });
+
+    for (let i = 0; i < 3; i++) {
+      this.addActiveMission(this.createMission());
+    }
 
     for (let i = 0; i < 4; i++) {
       this.addRecruitableHero(this.createHero(HeroService.getHeroLevelForReputation(this.playerReputation)));
