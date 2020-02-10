@@ -269,16 +269,13 @@ export class GameService {
 
     const prevGold = this.gold;
 
-    const homeCosts = Math.floor(
+    const homeCosts = 10 + Math.floor(
       this.hiredHeroes
         .filter(h => !h.assignment)
         .reduce((accumulator, hero) => accumulator + hero.missionFee / 2, 0)
     );
-
-    if (homeCosts > 0) {
-      this.createReport(`Upkeep`, `Home team cost ${homeCosts}`, ReportType.event);
-      this.subtractGold(homeCosts);
-    }
+    this.createReport(`Upkeep`, `Home team cost ${homeCosts}`, ReportType.event);
+    this.subtractGold(homeCosts);
 
     this.missionsWithAssignments.forEach(this.handleMission.bind(this));
     this.createReport(`Tick ${this.tick} summary`, `Gold: ${this.gold} (was ${prevGold})`, ReportType.event);
