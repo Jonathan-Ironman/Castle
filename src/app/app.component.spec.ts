@@ -19,7 +19,7 @@ import { MissionControlComponent } from './components/mission-control/mission-co
 import { storeConfig } from './app.module';
 
 const HeroServiceStub = {
-  createHero: () => { }
+  createHero: () => {}
 };
 
 describe('AppComponent', () => {
@@ -33,7 +33,7 @@ describe('AppComponent', () => {
         MissionSectionComponent,
         StatusBarComponent,
         ToolbarComponent,
-        MissionControlComponent,
+        MissionControlComponent
       ],
       imports: [
         FormsModule,
@@ -41,11 +41,11 @@ describe('AppComponent', () => {
         MaterialModule,
         RouterModule,
         RouterModule.forRoot(appRoutes),
-        StoreModule.forRoot(reducers, storeConfig),
+        StoreModule.forRoot(reducers, storeConfig)
       ],
       providers: [
         { provide: AngularFirestore, useValue: {} },
-        { provide: HeroService, useValue: HeroServiceStub },
+        { provide: HeroService, useValue: HeroServiceStub }
       ]
     }).compileComponents();
   }));
@@ -54,11 +54,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'Castle'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('Castle');
   });
 });

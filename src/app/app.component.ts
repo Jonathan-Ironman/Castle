@@ -11,9 +11,10 @@ import { GameService } from './services/game.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'Castle';
-
-  constructor(private gameService: GameService, private store: Store<AppState>) { }
+  constructor(
+    private gameService: GameService,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit() {
     this.gameService.gameInit();
