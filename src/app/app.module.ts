@@ -14,21 +14,21 @@ import { AppComponent } from './app.component';
 import { ActionButtonComponent } from './components/action-button/action-button.component';
 import { HeroMenuComponent } from './components/hero-menu/hero-menu.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { MissionControlComponent } from './components/mission-control/mission-control.component';
 import { MissionSectionComponent } from './components/mission-section/mission-section.component';
 import { StatusBarComponent } from './components/status-bar/status-bar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { MaterialModule } from './material/material.module';
 import { appRoutes } from './routes';
 import { reducers } from './store/reducers';
-import { MaterialModule } from './material/material.module';
-import { MissionControlComponent } from './components/mission-control/mission-control.component';
-import { metaReducers } from './store/reducers/index';
+import { metaReducers } from './store/reducers';
 
 export const storeConfig = {
   metaReducers,
   runtimeChecks: {
     strictStateImmutability: true,
     strictActionImmutability: true,
-    strictStateSerializability: true,
+    strictStateSerializability: true
     // strictActionSerializability: true,
   }
 };
@@ -53,7 +53,7 @@ export const storeConfig = {
       enabled: environment.production
     }),
     RouterModule.forRoot(
-      appRoutes,
+      appRoutes
       // { enableTracing: true } // <-- debugging purposes only
     ),
     BrowserAnimationsModule,
@@ -65,4 +65,4 @@ export const storeConfig = {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
