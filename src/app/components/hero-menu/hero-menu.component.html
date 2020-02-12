@@ -33,6 +33,8 @@
   </ng-container>
 </mat-card>
 
-<app-action-button class="fixedBottomRight" *ngIf="!heroes.length && screenType === 'main'" routerLink="/tavern">Hire
-  heroes
+<app-action-button class="fixedBottomRight" *ngIf="!heroes.length && screenType === 'main'" routerLink="/tavern">
+  Hire heroes
+</app-action-button>
+<app-action-button class="fixedBottomRight" *ngIf="screenType === 'assign'" routerLink="/missions">Done
 </app-action-button>
