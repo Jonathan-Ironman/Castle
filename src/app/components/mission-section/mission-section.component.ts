@@ -3,6 +3,10 @@ import { Store } from '@ngrx/store';
 import { Mission } from 'src/app/models/mission.model';
 import { AppState } from '../../store/reducers';
 import { MissionSelectors } from '../../store/selectors/mission.selector';
+import { HeroSelectors } from 'src/app/store/selectors/hero.selector';
+import { Hero } from 'src/app/models/hero.model';
+import { Observable } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-mission-section',
@@ -10,17 +14,40 @@ import { MissionSelectors } from '../../store/selectors/mission.selector';
   styleUrls: ['./mission-section.component.scss']
 })
 export class MissionSectionComponent implements OnInit {
-  missions: readonly Mission[];
+  missions$: Observable<readonly Mission[]>;
+  heroes$: Observable<readonly Hero[]>;
+  missionsPlusAssignments: any[];
 
   canAssignHero(mission: Mission): boolean {
     return true;
   }
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.store.select(MissionSelectors.activeMissions).subscribe(
-      activeMissions => this.missions = activeMissions
-    );
+    this.missions$ = this.store.select(MissionSelectors.activeMissions);
+    this.heroes$ = this.store.select(HeroSelectors.hiredHeroes);
+
+    this.missions$
+      .pipe(
+        switchMap((missions: Mission[]) =>
+          this.heroes$.pipe(
+            map((heroes: Hero[]) => {
+              const result = [];
+              missions.forEach(m => {
+                const heroNamesForMission = heroes
+                  .filter(h => h.assignment === m.id)
+                  .map(h => h.name);
+                result.push({ ...m, assignedHeroes: heroNamesForMission });
+              });
+              return result;
+            })
+          )
+        )
+      )
+      .subscribe(
+        missionsPlusAssignments =>
+          (this.missionsPlusAssignments = missionsPlusAssignments)
+      );
   }
 }

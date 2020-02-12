@@ -1,19 +1,15 @@
-<mat-card *ngIf="!!missions.length">
-    <div *ngFor="let mission of missions; let lastItem = last">
+<mat-card *ngIf="!!missionsPlusAssignments.length">
+    <div *ngFor="let mission of missionsPlusAssignments; let lastItem = last">
         <mat-card-title>{{ mission.title }}</mat-card-title>
-
-        <mat-card-subtitle *ngIf="!!mission.assignments?.length">
-            {{ mission.assignmentType | titlecase }}:
-            <span *ngFor="let hero of mission.assignments">
-                {{ hero.name }}
-            </span>
-        </mat-card-subtitle>
 
         <app-action-button [enabled]="canAssignHero(mission)" [routerLink]="['/assignments', mission.id]"
             class="floatRight">Assign</app-action-button>
 
         <mat-card-content>
             {{ mission.description }}
+            <span class="heroNames" *ngIf="!!mission.assignedHeroes.length">
+                <br /> <br /> {{ mission.assignedHeroes.join(', ') }}
+            </span>
         </mat-card-content>
         <mat-divider *ngIf="!lastItem"></mat-divider>
     </div>
