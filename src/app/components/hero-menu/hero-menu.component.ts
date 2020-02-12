@@ -37,13 +37,15 @@ export class HeroMenuComponent implements OnInit {
     private store: Store<AppState>,
     private route: ActivatedRoute,
     private gameService: GameService
-  ) { }
+  ) {}
 
   assignHeroToMission(hero: Hero) {
     if (!this.mission) {
       return console.error('Mission undefined');
     }
-    this.store.dispatch(HeroActions.assignMissionToHero({ hero, missionId: this.mission.id }));
+    this.store.dispatch(
+      HeroActions.assignMissionToHero({ hero, missionId: this.mission.id })
+    );
   }
 
   unassignHeroFromMission(hero: Hero) {
@@ -65,44 +67,47 @@ export class HeroMenuComponent implements OnInit {
   ngOnInit() {
     this.routeData$ = this.route.data;
     this.hiredHeroes$ = this.store.select(HeroSelectors.hiredHeroes);
-    this.recruitableHeroes$ = this.store.select(HeroSelectors.recruitableHeroes);
+    this.recruitableHeroes$ = this.store.select(
+      HeroSelectors.recruitableHeroes
+    );
 
-    this.routeData$.pipe(
-      switchMap(routeData => {
-        return this.hiredHeroes$
-          .pipe(
+    this.routeData$
+      .pipe(
+        switchMap(routeData => {
+          return this.hiredHeroes$.pipe(
             switchMap(hiredHeroes => {
-              return this.recruitableHeroes$
-                .pipe(
-                  map(recruitableHeroes => {
-                    return {
-                      hiredHeroes,
-                      recruitableHeroes,
-                      routeData
-                    };
-                  })
-                );
+              return this.recruitableHeroes$.pipe(
+                map(recruitableHeroes => {
+                  return {
+                    hiredHeroes,
+                    recruitableHeroes,
+                    routeData
+                  };
+                })
+              );
             })
           );
-      })
-    ).subscribe(data => {
-      this.screenType = data.routeData.screenType;
-      this.heroes = this.screenType === HeroScreenType.recruit &&
-        data.recruitableHeroes ||
-        data.hiredHeroes;
-    });
+        })
+      )
+      .subscribe(data => {
+        this.screenType = data.routeData.screenType;
+        this.heroes =
+          (this.screenType === HeroScreenType.recruit &&
+            data.recruitableHeroes) ||
+          data.hiredHeroes;
+      });
 
-    this.store.select(selectResourceState).subscribe(
-      resourses => this.gold = resourses.gold
-    );
+    this.store
+      .select(selectResourceState)
+      .subscribe(resources => (this.gold = resources.gold));
 
     this.mission$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         const missionId = +params.get('missionId');
         return this.store.select(MissionSelectors.missionById(missionId));
-      }));
+      })
+    );
 
-    this.mission$.subscribe(m => this.mission = m);
+    this.mission$.subscribe(m => (this.mission = m));
   }
 }
-
