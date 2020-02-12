@@ -15,3 +15,25 @@ h1 {
   font-weight: normal;
   text-shadow: 2px 2px 2px #000000;
 }
+
+.container > * {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.fixedBottomRight {
+  position: fixed;
+  right: 15px;
+  bottom: 0;
+}
+
+app-action-button.mat-raised-button {
+  margin: 6px;
+}
+
+.floatRight {
+  float: right;
+  margin-top: -1em !important;
+}

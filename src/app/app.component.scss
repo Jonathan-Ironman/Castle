@@ -8,14 +8,11 @@
 }
 
 .container {
-    width: calc(100% - 22px);
-    display: block;
-    position: fixed;
-    top: 47px;
-    bottom: 68px;
-    background-color: #ffffff14;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 7px;
-    overflow: auto;
+  width: calc(100% - 12px);
+  position: fixed;
+  top: 47px;
+  bottom: 68px;
+  background-color: #ffffff14;
+  left: 50%;
+  transform: translateX(-50%);
 }

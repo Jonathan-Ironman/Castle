@@ -8,17 +8,17 @@
 
     <ng-container *ngIf="screenType === 'assign'">
       <app-action-button [ngClass]="{ 'warn': !!hero.assignment }" *ngIf="hero.assignment !== mission.id"
-        (click)="assignHeroToMission(hero)" class="heroButton">
+        (click)="assignHeroToMission(hero)" class="floatRight">
         Assign
       </app-action-button>
       <app-action-button *ngIf="hero.assignment === mission.id" (click)="unassignHeroFromMission(hero)"
-        class="heroButton">
+        class="floatRight">
         Unassign
       </app-action-button>
     </ng-container>
 
     <app-action-button *ngIf="screenType === 'recruit'" (click)="canHireHero(hero.hiringFee) && recruit(hero)"
-      [enabled]="canHireHero(hero.hiringFee)" class="heroButton">Hire:
+      [enabled]="canHireHero(hero.hiringFee)" class="floatRight">Hire:
       {{hero.hiringFee}}
     </app-action-button>
 
@@ -33,5 +33,6 @@
   </ng-container>
 </mat-card>
 
-<app-action-button class="screenButton" *ngIf="!heroes.length && screenType === 'main'" routerLink="/tavern">Hire heroes
+<app-action-button class="fixedBottomRight" *ngIf="!heroes.length && screenType === 'main'" routerLink="/tavern">Hire
+  heroes
 </app-action-button>
