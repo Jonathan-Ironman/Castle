@@ -16,10 +16,11 @@ import { switchMap, map } from 'rxjs/operators';
 export class MissionSectionComponent implements OnInit {
   missions$: Observable<readonly Mission[]>;
   heroes$: Observable<readonly Hero[]>;
+  heroes: readonly Hero[];
   missionsPlusAssignments: any[];
 
   canAssignHero(mission: Mission): boolean {
-    return true;
+    return !!this.heroes.length;
   }
 
   constructor(private store: Store<AppState>) {}
@@ -27,6 +28,7 @@ export class MissionSectionComponent implements OnInit {
   ngOnInit() {
     this.missions$ = this.store.select(MissionSelectors.activeMissions);
     this.heroes$ = this.store.select(HeroSelectors.hiredHeroes);
+    this.heroes$.subscribe(heroes => (this.heroes = heroes));
 
     this.missions$
       .pipe(
