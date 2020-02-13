@@ -20,9 +20,9 @@ export class AppComponent implements OnInit {
     const hammer = new Hammer(document.documentElement);
     hammer.on('swipeleft swiperight', event => {
       if (event.type === 'swiperight') {
-        this.routerService.navNext();
-      } else if (event.type === 'swipeleft') {
         this.routerService.navPrev();
+      } else if (event.type === 'swipeleft') {
+        this.routerService.navNext();
       }
     });
   }
