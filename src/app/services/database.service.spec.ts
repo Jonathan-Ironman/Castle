@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from '../store/reducers';
 import { DatabaseService } from './database.service';
@@ -11,12 +11,12 @@ describe('DatabaseService', () => {
       StoreModule.forRoot(reducers, storeConfig)
     ],
     providers: [
-      { provide: AngularFirestore, useValue: {} }
+      { provide: Firestore, useValue: {} }
     ]
   }));
 
   it('should be created', () => {
-    const service: DatabaseService = TestBed.get(DatabaseService);
+    const service: DatabaseService = TestBed.inject(DatabaseService);
     expect(service).toBeTruthy();
   });
 });

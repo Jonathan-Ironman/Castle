@@ -3,9 +3,10 @@ import { Store } from '@ngrx/store';
 import { AppState, selectResourceState } from '../../store/reducers';
 
 @Component({
-  selector: 'app-status-bar',
-  templateUrl: './status-bar.component.html',
-  styleUrls: ['./status-bar.component.scss']
+    selector: 'app-status-bar',
+    templateUrl: './status-bar.component.html',
+    styleUrls: ['./status-bar.component.scss'],
+    standalone: false
 })
 export class StatusBarComponent implements OnInit {
   constructor(private store: Store<AppState>) { }

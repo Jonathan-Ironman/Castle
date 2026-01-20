@@ -1,10 +1,16 @@
-<mat-card *ngIf="!!reports.length">
-    <div *ngFor="let report of reports; let lastItem = last">
+@if (!!reports.length) {
+  <mat-card>
+    @for (report of reports; track report; let lastItem = $last) {
+      <div>
         <mat-card-content>
-            <strong>{{ report.title }}</strong> {{ report.text }}
+          <strong>{{ report.title }}</strong> {{ report.text }}
         </mat-card-content>
-        <mat-divider *ngIf="!lastItem"></mat-divider>
-    </div>
-</mat-card>
+        @if (!lastItem) {
+          <mat-divider></mat-divider>
+        }
+      </div>
+    }
+  </mat-card>
+}
 
 <app-action-button (click)="handleTick()" class="fixedBottomRight">Adventure time!</app-action-button>

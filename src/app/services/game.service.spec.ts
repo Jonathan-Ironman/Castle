@@ -24,8 +24,8 @@ describe('GameService', () => {
         StoreModule.forRoot(reducers, storeConfig)
       ]
     });
-    service = TestBed.get(GameService);
-    store = TestBed.get(Store);
+    service = TestBed.inject(GameService);
+    store = TestBed.inject(Store);
     dispatchSpy = spyOn(store, 'dispatch');
   });
 

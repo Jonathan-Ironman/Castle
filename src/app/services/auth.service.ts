@@ -1,39 +1,33 @@
-import { Injectable } from '@angular/core';
-// TODO import from firebase/app for prod??
-import * as firebase from 'firebase';
+import { Injectable, inject } from '@angular/core';
+import { Auth, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  provider: any;
+  private auth = inject(Auth, { optional: true });
+  private provider = new GoogleAuthProvider();
 
-  authenticate() {
-    firebase
-      .auth()
-      .signInWithPopup(this.provider)
-      .then(result => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = result.credential as firebase.auth.OAuthCredential;
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        const uid = user.uid;
-        // ...
-      })
-      .catch(error => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        const credential = error.credential;
-        // ...
-      });
-  }
-
-  constructor() {
-    this.provider = new firebase.auth.GoogleAuthProvider();
+  async authenticate() {
+    if (!this.auth) {
+      console.warn('Firebase Auth not initialized');
+      return;
+    }
+    
+    try {
+      const result = await signInWithPopup(this.auth, this.provider);
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential?.accessToken;
+      const user = result.user;
+      const uid = user.uid;
+      return { user, token, uid };
+    } catch (error: any) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      const email = error.customData?.email;
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      console.error('Auth error:', errorCode, errorMessage);
+      throw error;
+    }
   }
 }

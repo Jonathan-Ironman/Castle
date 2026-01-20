@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MissionControlComponent } from './mission-control.component';
 import { ActionButtonComponent } from '../action-button/action-button.component';
@@ -11,7 +11,7 @@ describe('MissionControlComponent', () => {
   let component: MissionControlComponent;
   let fixture: ComponentFixture<MissionControlComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
