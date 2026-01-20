@@ -6,9 +6,10 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 
 @Component({
-  selector: 'app-mission-control',
-  templateUrl: './mission-control.component.html',
-  styleUrls: ['./mission-control.component.scss']
+    selector: 'app-mission-control',
+    templateUrl: './mission-control.component.html',
+    styleUrls: ['./mission-control.component.scss'],
+    standalone: false
 })
 export class MissionControlComponent implements OnInit {
   reports: readonly Report[];

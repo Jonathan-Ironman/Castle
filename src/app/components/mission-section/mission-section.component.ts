@@ -9,9 +9,10 @@ import { Observable } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-mission-section',
-  templateUrl: './mission-section.component.html',
-  styleUrls: ['./mission-section.component.scss']
+    selector: 'app-mission-section',
+    templateUrl: './mission-section.component.html',
+    styleUrls: ['./mission-section.component.scss'],
+    standalone: false
 })
 export class MissionSectionComponent implements OnInit {
   missions$: Observable<readonly Mission[]>;

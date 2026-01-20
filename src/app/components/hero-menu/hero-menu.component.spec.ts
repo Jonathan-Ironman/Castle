@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store, StoreModule } from '@ngrx/store';
@@ -20,7 +20,7 @@ describe('HeroMenuComponent', () => {
   let store: Store<AppState>;
   let gameService: GameService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(reducers, storeConfig),
@@ -40,8 +40,8 @@ describe('HeroMenuComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HeroMenuComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store<AppState>>(Store);
-    gameService = TestBed.get<GameService>(GameService);
+    store = TestBed.inject<Store<AppState>>(Store);
+    gameService = TestBed.inject<GameService>(GameService);
     fixture.detectChanges();
   });
 

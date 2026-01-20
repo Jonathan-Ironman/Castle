@@ -1,6 +1,6 @@
 import { LayoutModule } from '@angular/cdk/layout';
-import { async, TestBed } from '@angular/core/testing';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { waitForAsync, TestBed } from '@angular/core/testing';
+import { Firestore } from '@angular/fire/firestore';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
@@ -23,7 +23,7 @@ const HeroServiceStub = {
 };
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         ActionButtonComponent,
@@ -44,7 +44,7 @@ describe('AppComponent', () => {
         StoreModule.forRoot(reducers, storeConfig)
       ],
       providers: [
-        { provide: AngularFirestore, useValue: {} },
+        { provide: Firestore, useValue: { collection: () => ({}), doc: () => ({}) } },
         { provide: HeroService, useValue: HeroServiceStub }
       ]
     }).compileComponents();

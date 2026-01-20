@@ -18,9 +18,10 @@ export enum HeroScreenType {
 }
 
 @Component({
-  selector: 'app-hero-menu',
-  templateUrl: './hero-menu.component.html',
-  styleUrls: ['./hero-menu.component.scss']
+    selector: 'app-hero-menu',
+    templateUrl: './hero-menu.component.html',
+    styleUrls: ['./hero-menu.component.scss'],
+    standalone: false
 })
 export class HeroMenuComponent implements OnInit {
   heroes: readonly Hero[] = [];

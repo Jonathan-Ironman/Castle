@@ -15,7 +15,7 @@ describe('DataService', () => {
         StoreModule.forRoot(reducers, storeConfig)
       ],
     });
-    service = TestBed.get(DataService);
+    service = TestBed.inject(DataService);
 
     localStorageSpy.setItem = spyOn(window.localStorage, 'setItem');
     localStorageSpy.getItem = spyOn(window.localStorage, 'getItem');
