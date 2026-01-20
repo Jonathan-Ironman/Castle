@@ -24,8 +24,8 @@ export class AuthService {
     } catch (error: any) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      const email = error.customData?.email;
-      const credential = GoogleAuthProvider.credentialFromError(error);
+      const _email = error.customData?.email;
+      const _credential = GoogleAuthProvider.credentialFromError(error);
       console.error('Auth error:', errorCode, errorMessage);
       throw error;
     }

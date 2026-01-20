@@ -44,7 +44,7 @@ describe('AppComponent', () => {
         StoreModule.forRoot(reducers, storeConfig)
       ],
       providers: [
-        { provide: Firestore, useValue: {} },
+        { provide: Firestore, useValue: { collection: () => ({}), doc: () => ({}) } },
         { provide: HeroService, useValue: HeroServiceStub }
       ]
     }).compileComponents();
