@@ -45,3 +45,4 @@ yarn-error.log
 testem.log
 /typings
 .firebase/hosting.ZGlzdFxDYXN0bGU.cache
+.dccache
