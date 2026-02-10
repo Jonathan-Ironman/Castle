@@ -46,3 +46,5 @@ testem.log
 /typings
 .firebase/hosting.ZGlzdFxDYXN0bGU.cache
 .dccache
+.angular/
+logs/
